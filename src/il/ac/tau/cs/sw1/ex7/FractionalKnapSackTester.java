@@ -26,6 +26,8 @@ public class FractionalKnapSackTester {
         FractionalKnapSack.Item s3 = new FractionalKnapSack.Item(30,120);
         FractionalKnapSack s = new FractionalKnapSack(0, Arrays.asList(s3,s1,s2));
         assertEquals("[]", s.greedyAlgorithm().toString());
+        s = new FractionalKnapSack(20, Arrays.asList());
+        assertEquals("[]", s.greedyAlgorithm().toString());
     }
 
     @Test
