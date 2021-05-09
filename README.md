@@ -9,7 +9,7 @@ The tests in this repository require JUnit.
 ### JUnit installation
 #### Eclipse
 * download JUnit tools : https://marketplace.eclipse.org/content/junit-tools <br>
-* Open eclipse, click Project -> properties -> Classpath -> Add Library -> JUnit, pick JUnit 5 <br>
+* Open eclipse, click Project -> properties -> Java Build Path -> Classpath -> Add Library -> JUnit, pick JUnit 5 <br>
 * You can run the test normally now
 #### IntelliJ
 IntelliJ: https://www.jetbrains.com/help/idea/testing.html <br>
