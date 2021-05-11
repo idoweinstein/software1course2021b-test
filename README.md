@@ -13,6 +13,7 @@ The tests in this repository require JUnit.
 * You can run the test normally now
 #### IntelliJ
 IntelliJ: https://www.jetbrains.com/help/idea/testing.html <br>
+See: Add testing libraries if there's a problem with importing.
 #### VSCode
 VSCode: https://youtu.be/LRkqvZs857c?t=176
 
