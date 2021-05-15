@@ -82,8 +82,8 @@ public class FileTester {
     @Test
     public void testGetAverageRankForWord() {
         this.index();
-
-        assertEquals(593, this.findex.getAverageRankForWord("meap"));
+        assertFalse(593 == this.findex.getAverageRankForWord("meap"), "Maybe there is a problem with the way you calculated the average.");
+        assertEquals(594, this.findex.getAverageRankForWord("meap"));
         assertEquals(43, this.findex.getAverageRankForWord("be"));
         assertEquals(586, this.findex.getAverageRankForWord("welcomed"));
         assertEquals(19, this.findex.getAverageRankForWord("you"));
