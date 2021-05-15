@@ -209,7 +209,7 @@ public class HistogramTester {
 
         HashMapHistogram<Double> hist2 = new HashMapHistogram<>();
         hist2.addAll(Arrays.asList(97.59, 88.58, 85.36, 88.08, 89.84, 93.88, 0.0));
-
+        
         Set<Double> items1 = hist1.getItemsSet();
         hist1.update(hist1);
         assertEquals(2, hist1.getCountForItem(91.11));
@@ -217,11 +217,18 @@ public class HistogramTester {
 
         Set<Double> items2 = hist2.getItemsSet();
         hist2.update(hist1);
-        items2.addAll(items1);
+        Set<Double> items3 = new HashSet<Double>();
+        items3.addAll(items1);
+        items3.addAll(items2);
         assertEquals(3, hist2.getCountForItem(0.0));
         assertEquals(2, hist2.getCountForItem(95.97));
         assertEquals(1, hist2.getCountForItem(88.58));
-        assertTrue(items2.equals(hist2.getItemsSet()));
+        assertTrue(items3.equals(hist2.getItemsSet()));
+        
+        HashMapHistogram<Double> hist3 = new HashMapHistogram<>();
+        Set<Double> items4 = hist1.getItemsSet();
+        hist1.update(hist3);
+        assertTrue(items4.equals(hist1.getItemsSet()));
     }
 
     @Test
