@@ -1,18 +1,17 @@
 package il.ac.tau.cs.sw1.ex8.wordsRank;
 
-import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import org.junit.Test;
 
 public class FileTester {
     public static final String INPUT_FOLDER = "./resources/hw8/input";
@@ -82,6 +81,7 @@ public class FileTester {
     @Test
     public void testGetAverageRankForWord() {
         this.index();
+
         assertFalse(593 == this.findex.getAverageRankForWord("meap"), "Maybe there is a problem with the way you calculated the average.");
         assertEquals(594, this.findex.getAverageRankForWord("meap"));
         assertEquals(43, this.findex.getAverageRankForWord("be"));

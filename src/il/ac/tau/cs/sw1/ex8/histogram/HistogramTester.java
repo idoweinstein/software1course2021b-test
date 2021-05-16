@@ -1,9 +1,6 @@
 package il.ac.tau.cs.sw1.ex8.histogram;
 
-import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,7 +10,13 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 public class HistogramTester {
     @Test
@@ -58,21 +61,22 @@ public class HistogramTester {
 
         /* Remove item when it does not exist 2 times */
         assertThrows(
-            "Remove item did not throw exception when no items left (first time)",
-            IllegalItemException.class, () -> intHist.removeItem(intValue)
+            IllegalItemException.class, () -> intHist.removeItem(intValue),
+                "Remove item did not throw exception when no items left (first time)"
         );
         assertThrows(
-            "Remove item did not throw exception when no items left (second time)",
-            IllegalItemException.class, () -> intHist.removeItem(intValue));
+            IllegalItemException.class, () -> intHist.removeItem(intValue),
+                "Remove item did not throw exception when no items left (second time)"
+        );
 
         /* Remove non existent item */
         final int nonExistentIntValue = Integer.reverseBytes(0x50450000);
         assertThrows(
-            "Remove non existent item did not throw exception when no items left (first time)",
-            IllegalItemException.class, () -> intHist.removeItem(nonExistentIntValue));
+            IllegalItemException.class, () -> intHist.removeItem(nonExistentIntValue),
+                "Remove non existent item did not throw exception when no items left (first time)");
         assertThrows(
-            "Remove non existent item did not throw exception when no items left (second time)",
-            IllegalItemException.class, () -> intHist.removeItem(nonExistentIntValue));
+            IllegalItemException.class, () -> intHist.removeItem(nonExistentIntValue),
+                "Remove non existent item did not throw exception when no items left (second time)");
     }
 
     @Test
@@ -94,15 +98,15 @@ public class HistogramTester {
 
         /* Add String value -5 times */
         assertThrows(
-            "addItemKTimes did not throw exception with a negative k value",
-            IllegalKValueException.class, () -> stringHist.addItemKTimes(stringValue, -5)
+            IllegalKValueException.class, () -> stringHist.addItemKTimes(stringValue, -5),
+                "addItemKTimes did not throw exception with a negative k value"
         );
 
         /* Add another String value 0 times */
         final String nonExistentStringValue = "כל המספרים, מה הם מספרים?";
         assertThrows(
-            "addItemKTimes did not throw exception with k = 0",
-            IllegalKValueException.class, () -> stringHist.addItemKTimes(nonExistentStringValue, 0)
+            IllegalKValueException.class, () -> stringHist.addItemKTimes(nonExistentStringValue, 0),
+                "addItemKTimes did not throw exception with k = 0"
         );
     }
 
@@ -121,13 +125,13 @@ public class HistogramTester {
 
         final String nonExistentStringValue = "Petah Tikva";
         assertThrows(
-            "removeItemKTimes of non existent value did not throw an exception",
-            IllegalItemException.class, () -> stringHist.removeItemKTimes(nonExistentStringValue, 6)
+            IllegalItemException.class, () -> stringHist.removeItemKTimes(nonExistentStringValue, 6),
+                "removeItemKTimes of non existent value did not throw an exception"
         );
 
         assertThrows(
-            "removeItemKTimes did not throw exception with k = 0",
-            IllegalKValueException.class, () -> stringHist.removeItemKTimes(stringValue2, 0)
+            IllegalKValueException.class, () -> stringHist.removeItemKTimes(stringValue2, 0),
+                "removeItemKTimes did not throw exception with k = 0"
         );
 
         assertDoesNotThrow(() -> stringHist.removeItemKTimes(stringValue2, kValue1));
@@ -209,7 +213,7 @@ public class HistogramTester {
 
         HashMapHistogram<Double> hist2 = new HashMapHistogram<>();
         hist2.addAll(Arrays.asList(97.59, 88.58, 85.36, 88.08, 89.84, 93.88, 0.0));
-        
+
         Set<Double> items1 = hist1.getItemsSet();
         hist1.update(hist1);
         assertEquals(2, hist1.getCountForItem(91.11));
@@ -224,7 +228,7 @@ public class HistogramTester {
         assertEquals(2, hist2.getCountForItem(95.97));
         assertEquals(1, hist2.getCountForItem(88.58));
         assertTrue(items3.equals(hist2.getItemsSet()));
-        
+
         HashMapHistogram<Double> hist3 = new HashMapHistogram<>();
         Set<Double> items4 = hist1.getItemsSet();
         hist1.update(hist3);
@@ -262,33 +266,33 @@ public class HistogramTester {
     @Test
     public void testTeachingAssistantsTest() {
         List<Integer> intLst = Arrays.asList(1, 2, 1, 2, 3, 4, 3, 1);
-		IHistogram<Integer> intHist = new HashMapHistogram<>();
-		for (int i : intLst) {
-			intHist.addItem(i);
-		}
+        IHistogram<Integer> intHist = new HashMapHistogram<>();
+        for (int i : intLst) {
+            intHist.addItem(i);
+        }
         assertEquals(3, intHist.getCountForItem(1));
         assertEquals(0, intHist.getCountForItem(5));
 
-		Iterator<Integer> intHistIt = intHist.iterator();
-		List<Integer> tmpList = new ArrayList<Integer>();
-		while (intHistIt.hasNext()) {
-			tmpList.add(intHistIt.next());
-		}
+        Iterator<Integer> intHistIt = intHist.iterator();
+        List<Integer> tmpList = new ArrayList<Integer>();
+        while (intHistIt.hasNext()) {
+            tmpList.add(intHistIt.next());
+        }
         assertEquals(1, tmpList.get(0));
         assertEquals(4, tmpList.size());
 
-		IHistogram<String> stringHist = new HashMapHistogram<>();
-		IHistogram<String> anotherHist = new HashMapHistogram<>();
+        IHistogram<String> stringHist = new HashMapHistogram<>();
+        IHistogram<String> anotherHist = new HashMapHistogram<>();
         assertDoesNotThrow(() -> stringHist.addItemKTimes("bb", 5));
         assertDoesNotThrow(() -> stringHist.addItemKTimes("aa", 5));
 
-		stringHist.addItem("abc");
-		stringHist.addItem("de");
-		stringHist.addItem("abc");
-		stringHist.addItem("de");
-		stringHist.addItem("abc");
-		stringHist.addItem("de");
-		stringHist.addItem("de");
+        stringHist.addItem("abc");
+        stringHist.addItem("de");
+        stringHist.addItem("abc");
+        stringHist.addItem("de");
+        stringHist.addItem("abc");
+        stringHist.addItem("de");
+        stringHist.addItem("de");
         assertEquals(3, stringHist.getCountForItem("abc"));
 
         assertThrows(IllegalItemException.class, () -> stringHist.removeItem("abba"));
@@ -299,19 +303,19 @@ public class HistogramTester {
         assertEquals(2, stringHist.getCountForItem("de"));
         assertDoesNotThrow(() -> stringHist.addItemKTimes("de", 2));
 
-		Iterator<String> it = stringHist.iterator();
-		/*
-		 * the order of the returned items should be: "aa", "bb", "de", "abc" aa
-		 * " and "bb" both appear 5 times, so in this case we sort by the
-		 * natural order of the elements "aa" and "bb". This is why "aa" should
-		 * appear before "bb"
-		 */
+        Iterator<String> it = stringHist.iterator();
+        /*
+         * the order of the returned items should be: "aa", "bb", "de", "abc" aa
+         * " and "bb" both appear 5 times, so in this case we sort by the
+         * natural order of the elements "aa" and "bb". This is why "aa" should
+         * appear before "bb"
+         */
         assertTrue(it.next().equals("aa"));
         assertTrue(it.next().equals("bb"));
         assertTrue(it.next().equals("de"));
 
-		anotherHist.addAll(Arrays.asList("abc", "ff"));
-		anotherHist.update(stringHist);
+        anotherHist.addAll(Arrays.asList("abc", "ff"));
+        anotherHist.update(stringHist);
         assertEquals(4, anotherHist.getCountForItem("abc"));
 
         assertEquals(4, anotherHist.getCountForItem("de"));
