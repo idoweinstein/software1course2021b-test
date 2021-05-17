@@ -36,6 +36,7 @@ public class FileTester {
         assertDoesNotThrow(() -> assertEquals(0, findex.getCountInFile("bongcloud.txt", "0-0-0")));
 
         assertDoesNotThrow(() -> assertEquals(4, findex.getCountInFile("chrysalis.txt", "beautiful")));
+        assertDoesNotThrow(() -> assertEquals(0, findex.getCountInFile("chrysalis.txt", null)));
 
         assertThrows(
             FileIndexException.class, 
@@ -44,6 +45,8 @@ public class FileTester {
                 "יב. קל לראות"
             )
         );
+        
+        
     }
 
     @Test
@@ -60,6 +63,7 @@ public class FileTester {
         assertDoesNotThrow(() -> assertEquals(1713, findex.getRankForWordInFile("bee-movie.txt", "sugar-free")));
 
         assertDoesNotThrow(() -> assertEquals(1864 + FileIndex.UNRANKED_CONST, findex.getRankForWordInFile("bee-movie.txt", "winnie-the-pooh")));
+        assertDoesNotThrow(() -> assertEquals(1864 + FileIndex.UNRANKED_CONST, findex.getRankForWordInFile("bee-movie.txt", null)));
 
         assertThrows(
             FileIndexException.class, 
@@ -84,6 +88,7 @@ public class FileTester {
 
         assertFalse(593 == this.findex.getAverageRankForWord("meap"), "Maybe there is a problem with the way you calculated the average.");
         assertEquals(594, this.findex.getAverageRankForWord("meap"));
+        assertEquals(594, this.findex.getAverageRankForWord(null));
         assertEquals(43, this.findex.getAverageRankForWord("be"));
         assertEquals(586, this.findex.getAverageRankForWord("welcomed"));
         assertEquals(19, this.findex.getAverageRankForWord("you"));
@@ -108,6 +113,10 @@ public class FileTester {
         Set<String> smallerThan36Expected = Collections.emptySet();
         Set<String> smallerThan36Results = this.findex.getWordsWithMaxRankSmallerThanK(36).stream().collect(Collectors.toSet());
         assertTrue(smallerThan36Expected.equals(smallerThan36Results));
+        
+        Set<String> smallerThan0Expected = Collections.emptySet();
+        Set<String> smallerThan0Results = this.findex.getWordsWithMaxRankSmallerThanK(0).stream().collect(Collectors.toSet());
+        assertTrue(smallerThan0Expected.equals(smallerThan0Results));
 
         List<String> allResults = this.findex.getWordsWithMaxRankSmallerThanK(Integer.MAX_VALUE);
 
@@ -139,6 +148,10 @@ public class FileTester {
         Set<String> smallerThan11Results = this.findex.getWordsWithAverageRankSmallerThanK(1).stream().collect(Collectors.toSet());
         assertTrue(smallerThan11Expected.equals(smallerThan11Results));
 
+        Set<String> smallerThan0Expected = Collections.emptySet();
+        Set<String> smallerThan0Results = this.findex.getWordsWithAverageRankSmallerThanK(0).stream().collect(Collectors.toSet());
+        assertTrue(smallerThan0Expected.equals(smallerThan0Results));
+        
         List<String> allResults = this.findex.getWordsWithAverageRankSmallerThanK(Integer.MAX_VALUE);
 
         assertEquals(2012, allResults.size());
@@ -162,6 +175,10 @@ public class FileTester {
         Set<String> smallerThan1Results = this.findex.getWordsWithMinRankSmallerThanK(1).stream().collect(Collectors.toSet());
         assertTrue(smallerThan1Expected.equals(smallerThan1Results));
 
+        Set<String> smallerThan0Expected = Collections.emptySet();
+        Set<String> smallerThan0Results = this.findex.getWordsWithMinRankSmallerThanK(0).stream().collect(Collectors.toSet());
+        assertTrue(smallerThan0Expected.equals(smallerThan0Results));
+        
         List<String> allResults = this.findex.getWordsWithMinRankSmallerThanK(Integer.MAX_VALUE);
 
         assertEquals(2012, allResults.size());
