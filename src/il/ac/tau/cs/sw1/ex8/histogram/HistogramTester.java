@@ -155,14 +155,14 @@ public class HistogramTester {
         
         // add and remove the same amount of items
         HashMapHistogram<Integer> intHist = new HashMapHistogram<>();
-        intHist.addAll(Arrays.asList(1,1,1,1,1));
-        try{
-        	intHist.removeItemKTimes(1, 5);
-        	assertEquals(intHist.getCountForItem(1), 0);
-        	intHist.removeItemKTimes(1, 1);
-        	assertEquals(intHist.getCountForItem(1), 0);
-        }
-        catch (Exception e) {}
+        try {
+	        intHist.addAll(Arrays.asList(1,1,1,1,1));
+	    	intHist.removeItemKTimes(1, 5);
+	    	assertEquals(intHist.getCountForItem(1), 0);
+	    	intHist.removeItemKTimes(1, 1);
+	    	assertEquals(intHist.getCountForItem(1), 0);}
+        catch (IllegalItemException e){}
+        catch (IllegalKValueException e) {}
     }
 
     @Test
