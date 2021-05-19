@@ -36,17 +36,14 @@ public class FileTester {
         assertDoesNotThrow(() -> assertEquals(0, findex.getCountInFile("bongcloud.txt", "0-0-0")));
 
         assertDoesNotThrow(() -> assertEquals(4, findex.getCountInFile("chrysalis.txt", "beautiful")));
-        assertDoesNotThrow(() -> assertEquals(0, findex.getCountInFile("chrysalis.txt", null)));
 
         assertThrows(
-            FileIndexException.class, 
+            FileIndexException.class,
             () -> findex.getCountInFile(
                 "2021b-final-test-answers.txt",
                 "יב. קל לראות"
             )
         );
-        
-        
     }
 
     @Test
@@ -66,7 +63,7 @@ public class FileTester {
         assertDoesNotThrow(() -> assertEquals(1864 + FileIndex.UNRANKED_CONST, findex.getRankForWordInFile("bee-movie.txt", null)));
 
         assertThrows(
-            FileIndexException.class, 
+            FileIndexException.class,
             () -> findex.getRankForWordInFile(
                 "האיש-הירוק.txt",
                 "אני מסיפור אחר"
@@ -74,7 +71,7 @@ public class FileTester {
         );
 
         assertThrows(
-            FileIndexException.class, 
+            FileIndexException.class,
             () -> findex.getRankForWordInFile(
                 "הילד-הירוק.txt",
                 "13"
@@ -88,7 +85,6 @@ public class FileTester {
 
         assertFalse(593 == this.findex.getAverageRankForWord("meap"), "Maybe there is a problem with the way you calculated the average.");
         assertEquals(594, this.findex.getAverageRankForWord("meap"));
-        assertEquals(594, this.findex.getAverageRankForWord(null));
         assertEquals(43, this.findex.getAverageRankForWord("be"));
         assertEquals(586, this.findex.getAverageRankForWord("welcomed"));
         assertEquals(19, this.findex.getAverageRankForWord("you"));
@@ -113,7 +109,7 @@ public class FileTester {
         Set<String> smallerThan36Expected = Collections.emptySet();
         Set<String> smallerThan36Results = this.findex.getWordsWithMaxRankSmallerThanK(36).stream().collect(Collectors.toSet());
         assertTrue(smallerThan36Expected.equals(smallerThan36Results));
-        
+
         Set<String> smallerThan0Expected = Collections.emptySet();
         Set<String> smallerThan0Results = this.findex.getWordsWithMaxRankSmallerThanK(0).stream().collect(Collectors.toSet());
         assertTrue(smallerThan0Expected.equals(smallerThan0Results));
@@ -151,7 +147,7 @@ public class FileTester {
         Set<String> smallerThan0Expected = Collections.emptySet();
         Set<String> smallerThan0Results = this.findex.getWordsWithAverageRankSmallerThanK(0).stream().collect(Collectors.toSet());
         assertTrue(smallerThan0Expected.equals(smallerThan0Results));
-        
+
         List<String> allResults = this.findex.getWordsWithAverageRankSmallerThanK(Integer.MAX_VALUE);
 
         assertEquals(2012, allResults.size());
@@ -178,7 +174,7 @@ public class FileTester {
         Set<String> smallerThan0Expected = Collections.emptySet();
         Set<String> smallerThan0Results = this.findex.getWordsWithMinRankSmallerThanK(0).stream().collect(Collectors.toSet());
         assertTrue(smallerThan0Expected.equals(smallerThan0Results));
-        
+
         List<String> allResults = this.findex.getWordsWithMinRankSmallerThanK(Integer.MAX_VALUE);
 
         assertEquals(2012, allResults.size());
@@ -207,7 +203,7 @@ public class FileTester {
         });
 
         assertDoesNotThrow(() -> {
-            assertTrue(fIndex.getRankForWordInFile("rocky3.txt", "revolution") 
+            assertTrue(fIndex.getRankForWordInFile("rocky3.txt", "revolution")
                         - fIndex.getRankForWordInFile("rocky3.txt", "doctor") >= FileIndex.UNRANKED_CONST);
         });
 
@@ -218,7 +214,7 @@ public class FileTester {
         List<String> topByMin = fIndex.getWordsWithMinRankSmallerThanK(2);
         //RankedWord [word=his, ranksForFile={rocky2.txt=1, rocky1.txt=23, rocky3.txt=31}, average=18, min=1, max=31]
         //RankedWord [word=rocky, ranksForFile={rocky2.txt=4, rocky1.txt=1, rocky3.txt=2}, average=2, min=1, max=4]
-        //RankedWord [word=and, ranksForFile={rocky2.txt=2, rocky1.txt=11, rocky3.txt=1}, average=5, min=1, max=11] 
+        //RankedWord [word=and, ranksForFile={rocky2.txt=2, rocky1.txt=11, rocky3.txt=1}, average=5, min=1, max=11]
         assertTrue(topByMin.contains("rocky"));
         assertTrue(topByMin.contains("and"));
         assertTrue(topByMin.contains("his"));

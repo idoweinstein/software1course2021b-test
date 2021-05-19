@@ -34,7 +34,7 @@ public class HistogramTester {
         for (int i = 0; i < intValues.length; ++i) {
             for (int j = 0; j < intValues[i][1]; ++j) {
                 intHist.addItem(intValues[i][0]);
-            } 
+            }
         }
 
         for (int i = 0; i < intValues.length; ++i) {
@@ -58,7 +58,7 @@ public class HistogramTester {
         /* Remove int item 42 times */
         for (int i = 0; i < 42; ++i) {
             assertDoesNotThrow(
-                () -> intHist.removeItem(intValue), 
+                () -> intHist.removeItem(intValue),
                 String.format("Remove item threw exception unexpectedly in iteration #%d", i)
             );
         }
@@ -81,13 +81,13 @@ public class HistogramTester {
         assertThrows(
             IllegalItemException.class, () -> intHist.removeItem(nonExistentIntValue),
                 "Remove non existent item did not throw exception when no items left (second time)");
-        
-        // remove from an empty hist
+
+        // Remove from an empty hist
         HashMapHistogram<Integer> hist = new HashMapHistogram<>();
         assertThrows(
                 IllegalItemException.class, () -> hist.removeItem(3),
-                    "Remove non existent item did not throw exception when no items left (second time)");
-            
+                    "Remove item from an empty histogram did not throw exception");
+
     }
 
     @Test
@@ -152,23 +152,21 @@ public class HistogramTester {
         assertDoesNotThrow(() -> stringHist.addItemKTimes(stringValue2, kValue1 * 2));
         assertDoesNotThrow(() -> stringHist.removeItemKTimes(stringValue2, kValue1));
         assertEquals(kValue2, stringHist.getCountForItem(stringValue2));
-        
-        // add and remove the same amount of items
+
+        // Add and remove the same amount of items
         HashMapHistogram<Integer> intHist = new HashMapHistogram<>();
-        try {
-	        intHist.addAll(Arrays.asList(1,1,1,1,1));
-	    	intHist.removeItemKTimes(1, 5);
-	    	assertEquals(intHist.getCountForItem(1), 0);
-	    	intHist.removeItemKTimes(1, 1);
-	    	assertEquals(intHist.getCountForItem(1), 0);}
-        catch (IllegalItemException e){}
-        catch (IllegalKValueException e) {}
+        assertDoesNotThrow(() -> intHist.addAll(Arrays.asList(1,1,1,1,1)));
+        assertDoesNotThrow(() -> intHist.removeItemKTimes(1, 5));
+        assertEquals(intHist.getCountForItem(1), 0);
+
+        assertThrows(IllegalItemException.class, () -> intHist.removeItemKTimes(1, 1));
+        assertEquals(intHist.getCountForItem(1), 0);
     }
 
     @Test
     public void testAddAll() {
         HashMapHistogram<Boolean> boolHist = new HashMapHistogram<>();
-        List<Boolean> values = 
+        List<Boolean> values =
             ("00000000001100010000000000110101000000000011000000000000001101000000000000110110000000000010001100000000001"
             + "000000000010111100000000001011101101100000101110101010000010111011111000000000010000000000101110100000000"
             + "010111100001000001011101010100000101111010000000000000100000000001011101110000000101110100110000010111010"
@@ -202,12 +200,6 @@ public class HistogramTester {
         boolHist.addAll(Arrays.asList(false, false, true, false, true, true, true, false));
         assertEquals(1695, boolHist.getCountForItem(false));
         assertEquals(873, boolHist.getCountForItem(true));
-        
-        // add null collection
-        HashMapHistogram<Integer> hist = new HashMapHistogram<>();
-        hist.addAll(Arrays.asList(1,2,3,3));
-        hist.addAll(null);
-        assertTrue(new HashSet<Integer>(Arrays.asList(1,2,3)).equals(hist.getItemsSet()));
     }
 
     @Test
@@ -228,11 +220,11 @@ public class HistogramTester {
         hist.addAll(Arrays.asList(3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8, 9, 7, 9, 3, 2, 3, 8));
         Set<Integer> items = hist.getItemsSet();
         assertTrue(new HashSet<Integer>(Arrays.asList(1,2,3,4,5,6,7,8,9)).equals(items));
-        
+
         hist.addAll(Arrays.asList(4, 6, 2, 6, 4, 3, 3, 8, 3, 2, 7, 9, 5, 0));
         items = hist.getItemsSet();
         assertTrue(new HashSet<Integer>(Arrays.asList(0,1,2,3,4,5,6,7,8,9)).equals(items));
-        
+
         hist.addAll(Arrays.asList()); // add an empty collection
         items = hist.getItemsSet();
         assertTrue(new HashSet<Integer>(Arrays.asList(0,1,2,3,4,5,6,7,8,9)).equals(items));
@@ -264,10 +256,6 @@ public class HistogramTester {
         HashMapHistogram<Double> hist3 = new HashMapHistogram<>();
         Set<Double> items4 = hist1.getItemsSet();
         hist1.update(hist3);
-        assertTrue(items4.equals(hist1.getItemsSet()));
-        
-        // add null hist
-        hist1.update(null);
         assertTrue(items4.equals(hist1.getItemsSet()));
     }
 
