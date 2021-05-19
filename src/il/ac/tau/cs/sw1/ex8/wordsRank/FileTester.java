@@ -60,7 +60,6 @@ public class FileTester {
         assertDoesNotThrow(() -> assertEquals(1713, findex.getRankForWordInFile("bee-movie.txt", "sugar-free")));
 
         assertDoesNotThrow(() -> assertEquals(1864 + FileIndex.UNRANKED_CONST, findex.getRankForWordInFile("bee-movie.txt", "winnie-the-pooh")));
-        assertDoesNotThrow(() -> assertEquals(1864 + FileIndex.UNRANKED_CONST, findex.getRankForWordInFile("bee-movie.txt", null)));
 
         assertThrows(
             FileIndexException.class,
