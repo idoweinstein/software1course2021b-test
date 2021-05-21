@@ -16,5 +16,30 @@ IntelliJ: https://www.jetbrains.com/help/idea/testing.html <br>
 See: Add testing libraries if there's a problem with importing.
 #### VSCode
 VSCode: https://youtu.be/LRkqvZs857c?t=176
-
-
+#### Nova
+* Log in to Nova
+* Set your github username and exercise number. <br>
+  For example, if your username is `israelaisraelit` and the exercise number is `20`, run the following commands:
+  ```
+  setenv USERNAME israelaisraelit
+  setenv EX_NO 20
+  ```
+* Clone your private github repository (enter your github username and password if asked for):
+  ```
+  git clone https://github.com/software1course2021b/hw$EX_NO-$USERNAME.git
+  ```
+* Set the tests up and build them:
+  ```
+  git clone https://github.com/idoweinstein/software1course2021b-test.git --depth 1
+  rm -rf software1course2021b-test/.git
+  cp -Rn software1course2021b-test/* hw$EX_NO-$USERNAME
+  rm -rf software1course2021b-test
+  cd hw$EX_NO-$USERNAME
+  wget https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.7.2/junit-platform-console-standalone-1.7.2.jar
+  mkdir build
+  find ./src/il/ac/tau/cs/sw1/ex$EX_NO -name '*.java' | xargs javac -d build -cp junit-platform-console-standalone-1.7.2.jar
+  ```
+* Run the tests:
+  ```
+  java -jar junit-platform-console-standalone-1.7.2.jar --class-path ./build --include-classname=.\* --scan-class-path
+  ``` 
