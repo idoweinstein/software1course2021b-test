@@ -26,7 +26,7 @@ VSCode: https://youtu.be/LRkqvZs857c?t=176
   ```
 * Clone your private github repository (enter your github username and password if asked for):
   ```
-  git clone git@github.com:software1course2021b/hw$EX_NO-$USERNAME.git
+  git clone https://github.com/software1course2021b/hw$EX_NO-$USERNAME.git
   ```
 * Set the tests up and build them:
   ```
