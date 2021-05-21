@@ -32,7 +32,8 @@ VSCode: https://youtu.be/LRkqvZs857c?t=176
   ```
   git clone https://github.com/idoweinstein/software1course2021b-test.git --depth 1
   rm -rf software1course2021b-test/.git
-  cp -R software1course2021b-test/* hw$EX_NO-$USERNAME
+  cp -Rn software1course2021b-test/* hw$EX_NO-$USERNAME
+  rm -rf software1course2021b-test
   cd hw$EX_NO-$USERNAME
   wget https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.7.2/junit-platform-console-standalone-1.7.2.jar
   mkdir build
@@ -41,4 +42,4 @@ VSCode: https://youtu.be/LRkqvZs857c?t=176
 * Run the tests:
   ```
   java -jar junit-platform-console-standalone-1.7.2.jar --class-path ./build --include-classname=.\* --scan-class-path
-  ```
+  ``` 
