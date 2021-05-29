@@ -198,9 +198,12 @@ public class SpacefleetTester {
     })
     public void testWeaponImmutability(Spaceship spaceship) {
         assertDoesNotThrow(() -> {
+            @SuppressWarnings("unchecked")
             List<Weapon> weaponBefore = (List<Weapon>)spaceship.getClass().getMethod("getWeapon").invoke(spaceship);
+            @SuppressWarnings("unchecked")
             List<Weapon> weaponToClear = (List<Weapon>)spaceship.getClass().getMethod("getWeapon").invoke(spaceship);
             weaponToClear.clear();
+            @SuppressWarnings("unchecked")
             List<Weapon> weaponAfter = (List<Weapon>)spaceship.getClass().getMethod("getWeapon").invoke(spaceship);
 
             assertTrue(
