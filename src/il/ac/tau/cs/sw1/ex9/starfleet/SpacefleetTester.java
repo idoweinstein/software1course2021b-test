@@ -230,7 +230,7 @@ public class SpacefleetTester {
             try (FileWriter writer = new FileWriter(TESTER_WRONG_OUTPUT)) {
                 writer.write(output);
             }
-            assert false : String.format(
+            assertTrue(false, String.format(
                 "Your output and the expeced output do not match. Writing your result into a file. %n"
                 + "You can compare the results by running the following command (red - expected, green - yours):%n"
                 + "git --no-pager diff --no-index --ignore-space-at-eol %s %s %n%n"
@@ -242,7 +242,7 @@ public class SpacefleetTester {
                 Paths.get(TESTER_WRONG_OUTPUT).toAbsolutePath().toString(),
                 Paths.get(TESTER_WRONG_OUTPUT).toAbsolutePath().toString(),
                 Paths.get(TESTER_WRONG_OUTPUT).toAbsolutePath().toString()
-            );
+            ));
         }
     }
 }

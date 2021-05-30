@@ -4,6 +4,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.function.Consumer;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class TesterUtil {
     public static String testOutput(Consumer<String[]> function, String[] args, String name) {
         final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -17,7 +19,7 @@ public class TesterUtil {
         function.accept(args);
 
         String errOutput = errContent.toString();
-        assert "".equals(errOutput) : String.format("%s unexpectedly printed to System.err:%n%s", name, errContent);
+        assertTrue("".equals(errOutput), String.format("%s unexpectedly printed to System.err:%n%s", name, errContent));
 
         String output = outContent.toString();
 
