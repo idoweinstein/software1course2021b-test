@@ -21,10 +21,13 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SpacefleetTester {
-    private static int stealthCruiserCount = 0;
-    private static final String TESTER_OUTPUT_PATH = "./src/il/ac/tau/cs/sw1/ex9/starfleet/StarfleetManagerTester-Output.txt";
-    private static final String TESTER_OUTPUT_ALL_PATH = "./src/il/ac/tau/cs/sw1/ex9/starfleet/StarfleetManagerTester-Output-All.txt";
-    private static final String TESTER_WRONG_OUTPUT = "MyOutput.txt";
+  private static int stealthCruiserCount = 0;
+  private static final String FOLDER_PATH = "./src/il/ac/tau/cs/sw1/ex9/starfleet/";
+  private static final String TESTER_OUTPUT_PATH =
+      FOLDER_PATH + "StarfleetManagerTester-Output.txt";
+  private static final String TESTER_OUTPUT_ALL_PATH =
+      FOLDER_PATH + "StarfleetManagerTester-Output-All.txt";
+  private static final String TESTER_WRONG_OUTPUT = FOLDER_PATH + "MyOutput.txt";
 
     @SuppressWarnings("unused")
     private static Stream<Arguments> transportShipsMaintenanceProvider() {
