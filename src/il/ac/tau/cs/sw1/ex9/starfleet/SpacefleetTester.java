@@ -1,28 +1,24 @@
 package il.ac.tau.cs.sw1.ex9.starfleet;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import il.ac.tau.cs.sw1.ex9.TesterUtil;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SpacefleetTester {
     private static int stealthCruiserCount = 0;
@@ -30,6 +26,7 @@ public class SpacefleetTester {
     private static final String TESTER_OUTPUT_ALL_PATH = "./src/il/ac/tau/cs/sw1/ex9/starfleet/StarfleetManagerTester-Output-All.txt";
     private static final String TESTER_WRONG_OUTPUT = "MyOutput.txt";
 
+    @SuppressWarnings("unused")
     private static Stream<Arguments> transportShipsMaintenanceProvider() {
         Set<CrewMember> members = new HashSet<>(Arrays.asList(new Cylon("Jane", 0, 0, 0)));
         return Stream.of(
@@ -42,6 +39,7 @@ public class SpacefleetTester {
         );
     }
 
+    @SuppressWarnings("unused")
     private static Stream<Arguments> fightersMaintenanceProvider() {
         Set<CrewMember> members = new HashSet<>(Arrays.asList(new CrewWoman(0, 0, "A"), new Cylon("B", 1, 1, 1)));
         List<Weapon> weapon1 = Arrays.asList(new Weapon("Cap Gun", 1, 1));
@@ -54,6 +52,7 @@ public class SpacefleetTester {
         );
     }
 
+    @SuppressWarnings("unused")
     private static Stream<Arguments> bombersMaintenanceProvider() {
         List<Weapon> weapon1 = Arrays.asList(new Weapon("Molecular Disruption Device", 1000000, 100000));
         List<Weapon> weapon2 = Arrays.asList(new Weapon("Cap Gun", 1, 1));
@@ -71,6 +70,7 @@ public class SpacefleetTester {
         );
     }
 
+    @SuppressWarnings("unused")
     private static Stream<Arguments> stealthCruisersMaintenanceProvider1() {
         Set<CrewMember> members = new HashSet<>(Arrays.asList(new CrewWoman(0, 0, "C")));
         List<Weapon> weapon = Arrays.asList(new Weapon("Cap Gun", 1, 1));
@@ -82,6 +82,7 @@ public class SpacefleetTester {
         );
     }
 
+    @SuppressWarnings("unused")
     private static Stream<Arguments> stealthCruisersMaintenanceProvider2() {
         stealthCruiserCount++;
         return Stream.of(
@@ -89,6 +90,7 @@ public class SpacefleetTester {
         );
     }
 
+    @SuppressWarnings("unused")
     private static Stream<Arguments> colonialViperMaintenanceProvider() {
         Set<CrewWoman> members = new HashSet<>(Arrays.asList(new CrewWoman(1, 10, "Isabella Garcia-Shapiro"), (CrewWoman)new Officer("", 0, 0, OfficerRank.LieutenantCommander)));
         List<Weapon> weapon = Arrays.asList(new Weapon("Super Cute Weapon", 1570796, 90));
@@ -102,7 +104,9 @@ public class SpacefleetTester {
         );
     }
 
+    @SuppressWarnings("unused")
     private static Stream<Arguments> cylonRaiderMaintenanceProvider() {
+        // FIXME Cylon's model number must be between 0 and 12
         Set<Cylon> members = new HashSet<>(Arrays.asList(new Cylon("Android 16", 0, 0, 16), new Cylon("Android 17", 0, 0, 17), new Cylon("Android 18", 0, 0, 18)));
         List<Weapon> weapon = Arrays.asList(
             new Weapon("Android Bomb", 50000, 1000),
@@ -123,6 +127,9 @@ public class SpacefleetTester {
             Arguments.of(new CylonRaider("CylonRaider #8", 666, 10, members, weapon), 31600, 1200610)
         );
     }
+
+    // TODO add Cylon model number tester
+    // TODO Add a test that makes sure that all functions were added, and that they're functional
 
     @ParameterizedTest
     @MethodSource({
