@@ -1,9 +1,10 @@
-package il.ac.tau.cs.sw1.ex9;
+package il.ac.tau.cs.sw1.ex9.starfleet;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.function.Consumer;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TesterUtil {
@@ -19,7 +20,7 @@ public class TesterUtil {
         function.accept(args);
 
         String errOutput = errContent.toString();
-        assertTrue("".equals(errOutput), String.format("%s unexpectedly printed to System.err:%n%s", name, errContent));
+        assertEquals("", errOutput, String.format("%s unexpectedly printed to System.err:%n%s", name, errContent));
 
         String output = outContent.toString();
 
@@ -28,5 +29,5 @@ public class TesterUtil {
 
         return output;
     }
-    
+
 }
