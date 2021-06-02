@@ -32,20 +32,21 @@ public class SpacefleetTester {
   private static final int COST_PER_STEALTH_CRUISER = 50;
   private static final List<StealthCruiser> stealthCruisers = new ArrayList<>();
   private static int stealthCruiserCount = 0;
-  private static final Supplier<Integer> addedCostPerStealthCruiserUnit = () -> stealthCruiserCount * COST_PER_STEALTH_CRUISER;
+  private static final Supplier<Integer> addedCostPerStealthCruiserUnit =
+      () -> stealthCruiserCount * COST_PER_STEALTH_CRUISER;
 
   @SuppressWarnings("unused")
   private static Stream<Arguments> transportShipsMaintenanceProvider() {
     Set<CrewMember> members = Collections.singleton(new Cylon("Jane", 0, 0, 0));
     return Stream.of(
-            Arguments.of(new TransportShip("IFcoltrans1", 2, 0f, members, 0, 0), 3000, 10),
-            Arguments.of(new TransportShip("IFcoltrans2", 20, 2.5f, members, 1, 0), 3005, 10),
-            Arguments.of(
-                    new TransportShip("IFcoltrans3", 2000, 3.7f, Collections.emptySet(), 10, 0), 3050, 10),
-            Arguments.of(
-                    new TransportShip("IFcoltrans4", 20000, 5.1f, Collections.emptySet(), 0, 1), 3003, 10),
-            Arguments.of(new TransportShip("IFcoltrans5", 200000, 7.6f, members, 0, 10), 3030, 10),
-            Arguments.of(new TransportShip("IFcoltrans6", 2000000, 10f, members, 100, 200), 4100, 10));
+        Arguments.of(new TransportShip("IFcoltrans1", 2, 0f, members, 0, 0), 3000, 10),
+        Arguments.of(new TransportShip("IFcoltrans2", 20, 2.5f, members, 1, 0), 3005, 10),
+        Arguments.of(
+            new TransportShip("IFcoltrans3", 2000, 3.7f, Collections.emptySet(), 10, 0), 3050, 10),
+        Arguments.of(
+            new TransportShip("IFcoltrans4", 20000, 5.1f, Collections.emptySet(), 0, 1), 3003, 10),
+        Arguments.of(new TransportShip("IFcoltrans5", 200000, 7.6f, members, 0, 10), 3030, 10),
+        Arguments.of(new TransportShip("IFcoltrans6", 2000000, 10f, members, 100, 200), 4100, 10));
   }
 
   @SuppressWarnings("unused")
@@ -74,38 +75,38 @@ public class SpacefleetTester {
   @SuppressWarnings("unused")
   private static Stream<Arguments> bombersMaintenanceProvider() {
     List<Weapon> weapon1 =
-            Collections.singletonList(new Weapon("Molecular Disruption Device", 1000000, 100000));
+        Collections.singletonList(new Weapon("Molecular Disruption Device", 1000000, 100000));
     List<Weapon> weapon2 = Collections.singletonList(new Weapon("Cap Gun", 1, 1));
     Set<CrewMember> members = Collections.singleton(new CrewWoman(11, 5, "Andrew Wiggin"));
     return Stream.of(
-            // FIXME Fix speeds
-            Arguments.of(
-                    new Bomber("Starfighter #1", 2101, 96700f, members, weapon1, 0), 105000, 1000010),
-            Arguments.of(
-                    new Bomber("Starfighter #2", 2102, 967000f, Collections.emptySet(), weapon1, 1),
-                    95000,
-                    1000010),
-            Arguments.of(
-                    new Bomber("Starfighter #3", 2103, 9670f, members, weapon1, 2), 85000, 1000010),
-            Arguments.of(
-                    new Bomber("Starfighter #4", 2104, 90f, Collections.emptySet(), weapon1, 3),
-                    75000,
-                    1000010),
-            Arguments.of(
-                    new Bomber("Starfighter #5", 2105, 96000f, Collections.emptySet(), weapon1, 4),
-                    65000,
-                    1000010),
-            Arguments.of(new Bomber("Starfighter #6", 2106, 9f, members, weapon1, 5), 55000, 1000010),
-            Arguments.of(
-                    new Bomber(
-                            "Starfighter #1 with Cap Gun",
-                            2101,
-                            96700f,
-                            members,
-                            Stream.concat(weapon1.stream(), weapon2.stream()).collect(Collectors.toList()),
-                            0),
-                    105001,
-                    1000011));
+        // FIXME Fix speeds
+        Arguments.of(
+            new Bomber("Starfighter #1", 2101, 96700f, members, weapon1, 0), 105000, 1000010),
+        Arguments.of(
+            new Bomber("Starfighter #2", 2102, 967000f, Collections.emptySet(), weapon1, 1),
+            95000,
+            1000010),
+        Arguments.of(
+            new Bomber("Starfighter #3", 2103, 9670f, members, weapon1, 2), 85000, 1000010),
+        Arguments.of(
+            new Bomber("Starfighter #4", 2104, 90f, Collections.emptySet(), weapon1, 3),
+            75000,
+            1000010),
+        Arguments.of(
+            new Bomber("Starfighter #5", 2105, 96000f, Collections.emptySet(), weapon1, 4),
+            65000,
+            1000010),
+        Arguments.of(new Bomber("Starfighter #6", 2106, 9f, members, weapon1, 5), 55000, 1000010),
+        Arguments.of(
+            new Bomber(
+                "Starfighter #1 with Cap Gun",
+                2101,
+                96700f,
+                members,
+                Stream.concat(weapon1.stream(), weapon2.stream()).collect(Collectors.toList()),
+                0),
+            105001,
+            1000011));
   }
 
   @SuppressWarnings("unused")
@@ -116,27 +117,24 @@ public class SpacefleetTester {
     // TODO Move initialisation to BeforeAll
     if (stealthCruisers.size() == 0) {
       stealthCruisers.add(
-              new StealthCruiser(
-                      "StealthCruisers #0",
-                      1,
-                      10000 / 3333f,
-                      Collections.emptySet(),
-                      Collections.emptyList()));
+          new StealthCruiser(
+              "StealthCruisers #0",
+              1,
+              10000 / 3333f,
+              Collections.emptySet(),
+              Collections.emptyList()));
       stealthCruisers.add(
-              new StealthCruiser("StealthCruisers #1", 708, 10000 / 3334f, members, weapon));
+          new StealthCruiser("StealthCruisers #1", 708, 10000 / 3334f, members, weapon));
       stealthCruisers.add(
-              new StealthCruiser(
-                      "StealthCruisers #2", 9999, 10000 / 3334f, members, Collections.emptyList()));
+          new StealthCruiser(
+              "StealthCruisers #2", 9999, 10000 / 3334f, members, Collections.emptyList()));
       stealthCruiserCount += 3;
     }
 
     return Stream.of(
-            Arguments.of(
-                    stealthCruisers.get(0), 5500 + addedCostPerStealthCruiserUnit.get(), 10),
-            Arguments.of(
-                    stealthCruisers.get(1), 5500 + addedCostPerStealthCruiserUnit.get(), 11),
-            Arguments.of(
-                    stealthCruisers.get(2), 5499 + addedCostPerStealthCruiserUnit.get(), 10));
+        Arguments.of(stealthCruisers.get(0), 5500 + addedCostPerStealthCruiserUnit.get(), 10),
+        Arguments.of(stealthCruisers.get(1), 5500 + addedCostPerStealthCruiserUnit.get(), 11),
+        Arguments.of(stealthCruisers.get(2), 5499 + addedCostPerStealthCruiserUnit.get(), 10));
   }
 
   @SuppressWarnings("unused")
@@ -153,10 +151,10 @@ public class SpacefleetTester {
   @SuppressWarnings("unused")
   private static Stream<Arguments> colonialViperMaintenanceProvider() {
     Set<CrewWoman> members =
-            new HashSet<>(
-                    Arrays.asList(
-                            new CrewWoman(1, 10, "Isabella Garcia-Shapiro"),
-                            new Officer("", 0, 0, OfficerRank.LieutenantCommander)));
+        new HashSet<>(
+            Arrays.asList(
+                new CrewWoman(1, 10, "Isabella Garcia-Shapiro"),
+                new Officer("", 0, 0, OfficerRank.LieutenantCommander)));
     List<Weapon> weapon = Collections.singletonList(new Weapon("Super Cute Weapon", 1570796, 90));
 
     return Stream.of(
@@ -252,43 +250,43 @@ public class SpacefleetTester {
         Arguments.of(new CylonRaider("CylonRaider #8", 666, 10, members, weapon), 31600, 1200610));
   }
 
-    // TODO add Cylon model number tester
-    // TODO Add a test that makes sure that all functions were added, and that they're functional
+  // TODO add Cylon model number tester
+  // TODO Add a test that makes sure that all functions were added, and that they're functional
 
   @ParameterizedTest
   @MethodSource({
-          "transportShipsMaintenanceProvider",
-          "fightersMaintenanceProvider",
-          "bombersMaintenanceProvider",
-          "stealthCruisersMaintenanceProvider1",
-          "stealthCruisersMaintenanceProvider2",
-          "colonialViperMaintenanceProvider",
-          "cylonRaiderMaintenanceProvider"
+    "transportShipsMaintenanceProvider",
+    "fightersMaintenanceProvider",
+    "bombersMaintenanceProvider",
+    "stealthCruisersMaintenanceProvider1",
+    "stealthCruisersMaintenanceProvider2",
+    "colonialViperMaintenanceProvider",
+    "cylonRaiderMaintenanceProvider"
   })
   public void testAnnualMaintenanceCost(
-          Spaceship spaceship, int expectedMaintenance, int expectedFirePower) {
+      Spaceship spaceship, int expectedMaintenance, int expectedFirePower) {
     assertEquals(
-            expectedMaintenance,
-            spaceship.getAnnualMaintenanceCost(),
-            "Maintenance - " + spaceship.getName());
+        expectedMaintenance,
+        spaceship.getAnnualMaintenanceCost(),
+        "Maintenance - " + spaceship.getName());
     assertEquals(
-            expectedFirePower, spaceship.getFirePower(), "Fire Power - " + spaceship.getName());
+        expectedFirePower, spaceship.getFirePower(), "Fire Power - " + spaceship.getName());
   }
 
-    @ParameterizedTest
-    @MethodSource({
-        "transportShipsMaintenanceProvider",
-        "fightersMaintenanceProvider",
-        "bombersMaintenanceProvider",
-        "stealthCruisersMaintenanceProvider1",
-        "stealthCruisersMaintenanceProvider2",
-        "colonialViperMaintenanceProvider",
-        "cylonRaiderMaintenanceProvider"
-    })
-    public void testImmutability(Spaceship spaceship) {
-        int maintenanceBefore = spaceship.getAnnualMaintenanceCost();
-        int firepowerBefore = spaceship.getFirePower();
-        String reprBefore = spaceship.toString();
+  @ParameterizedTest
+  @MethodSource({
+    "transportShipsMaintenanceProvider",
+    "fightersMaintenanceProvider",
+    "bombersMaintenanceProvider",
+    "stealthCruisersMaintenanceProvider1",
+    "stealthCruisersMaintenanceProvider2",
+    "colonialViperMaintenanceProvider",
+    "cylonRaiderMaintenanceProvider"
+  })
+  public void testImmutability(Spaceship spaceship) {
+    int maintenanceBefore = spaceship.getAnnualMaintenanceCost();
+    int firepowerBefore = spaceship.getFirePower();
+    String reprBefore = spaceship.toString();
 
     Set<? extends CrewMember> crewBefore = spaceship.getCrewMembers();
     Set<? extends CrewMember> crewToClear = spaceship.getCrewMembers();
@@ -299,7 +297,7 @@ public class SpacefleetTester {
     Set<? extends CrewMember> crewAfter = spaceship.getCrewMembers();
 
     assertEquals(
-            crewBefore, crewAfter, String.format("%s crew is not immutable", spaceship.getName()));
+        crewBefore, crewAfter, String.format("%s crew is not immutable", spaceship.getName()));
 
     assertEquals(maintenanceBefore, spaceship.getAnnualMaintenanceCost(), spaceship.getName());
 
@@ -311,12 +309,12 @@ public class SpacefleetTester {
   @SuppressWarnings("unchecked")
   @ParameterizedTest
   @MethodSource({
-          "fightersMaintenanceProvider",
-          "bombersMaintenanceProvider",
-          "stealthCruisersMaintenanceProvider1",
-          "stealthCruisersMaintenanceProvider2",
-          "colonialViperMaintenanceProvider",
-          "cylonRaiderMaintenanceProvider"
+    "fightersMaintenanceProvider",
+    "bombersMaintenanceProvider",
+    "stealthCruisersMaintenanceProvider1",
+    "stealthCruisersMaintenanceProvider2",
+    "colonialViperMaintenanceProvider",
+    "cylonRaiderMaintenanceProvider"
   })
   public void testWeaponImmutability(Spaceship spaceship) {
     String method = "getWeapon";
@@ -327,9 +325,9 @@ public class SpacefleetTester {
       weaponBefore.clear();
       List<Weapon> weaponAfter = (List<Weapon>) getWeaponMethod.invoke(spaceship);
       assertEquals(
-              weaponBefore,
-              weaponAfter,
-              String.format("%s weapon is not immutable", spaceship.getName()));
+          weaponBefore,
+          weaponAfter,
+          String.format("%s weapon is not immutable", spaceship.getName()));
     } catch (IllegalAccessException e) {
       Assertions.fail(String.format("The method '%s' is inaccessible", method));
       e.printStackTrace();
@@ -338,9 +336,9 @@ public class SpacefleetTester {
       e.printStackTrace();
     } catch (NoSuchMethodException e) {
       Assertions.fail(
-              String.format(
-                      "The method '%s' does not exist in %s",
-                      method, spaceship.getClass().getSimpleName()));
+          String.format(
+              "The method '%s' does not exist in %s",
+              method, spaceship.getClass().getSimpleName()));
       e.printStackTrace();
     } catch (UnsupportedOperationException ignored) {
     }
@@ -351,35 +349,35 @@ public class SpacefleetTester {
     Path path = Paths.get(stealthCruiserCount == 0 ? TESTER_OUTPUT_PATH : TESTER_OUTPUT_ALL_PATH);
 
     String output =
-        il.ac.tau.cs.sw1.ex9.starfleet.TesterUtil.testOutput(
+        TesterUtil.testOutput(
             StarfleetManagerTester::main, new String[] {}, "StarfleetManagerTester.main");
     stealthCruiserCount += 3;
-    String expected =
-        new String(
-            Files.readAllBytes(
-                Paths.get(stealthCruiserCount == 0 ? TESTER_OUTPUT_PATH : TESTER_OUTPUT_ALL_PATH)),
-            StandardCharsets.UTF_8);
+    String expected = new String(Files.readAllBytes(path), StandardCharsets.UTF_8);
 
-        output = output.replaceAll("\r\n", "\n");
-        expected = expected.replaceAll("\r\n", "\n");
+    output = TesterUtil.crlfToLf(output);
+    expected = TesterUtil.crlfToLf(expected);
 
-        if (!expected.equals(output)) {
-            try (FileWriter writer = new FileWriter(TESTER_WRONG_OUTPUT)) {
-                writer.write(output);
-            }
-            assertTrue(false, String.format(
-                "Your output and the expeced output do not match. Writing your result into a file. %n"
-                + "You can compare the results by running the following command (red - expected, green - yours):%n"
-                + "git --no-pager diff --no-index --ignore-space-at-eol %s %s %n%n"
-                + "Afterwards, please delete the file by running (on a Linux machine):%n"
-                + "rm %s%n"
-                + "or (on a Windows machine):%n"
-                + "del /f %s",
-                path.toAbsolutePath().toString(),
-                Paths.get(TESTER_WRONG_OUTPUT).toAbsolutePath().toString(),
-                Paths.get(TESTER_WRONG_OUTPUT).toAbsolutePath().toString(),
-                Paths.get(TESTER_WRONG_OUTPUT).toAbsolutePath().toString()
-            ));
-        }
+    if (!expected.equals(output)) {
+      try (FileWriter writer = new FileWriter(TESTER_WRONG_OUTPUT)) {
+        writer.write(output);
+      }
+      // Using assertEquals instead of fail, since IntelliJ allows users to easily compare the
+      // expected and actual output
+      assertEquals(
+          expected,
+          output,
+          String.format(
+              "Your output and the expeced output do not match. Writing your result into a file. %n"
+                  + "You can compare the results by running the following command (red - expected, green - yours):%n"
+                  + "git --no-pager diff --no-index --ignore-space-at-eol %s %s %n%n"
+                  + "Afterwards, please delete the file by running (on a Linux machine):%n"
+                  + "rm %s%n"
+                  + "or (on a Windows machine):%n"
+                  + "del /f %s",
+              path.toAbsolutePath(),
+              Paths.get(TESTER_WRONG_OUTPUT).toAbsolutePath(),
+              Paths.get(TESTER_WRONG_OUTPUT).toAbsolutePath(),
+              Paths.get(TESTER_WRONG_OUTPUT).toAbsolutePath()));
     }
+  }
 }

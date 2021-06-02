@@ -1,4 +1,4 @@
-package il.ac.tau.cs.sw1.ex9.starfleet;
+package il.ac.tau.cs.sw1.ex9;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -28,6 +28,10 @@ public class TesterUtil {
         System.setErr(originalErr);
 
         return output;
+    }
+
+    public static String crlfToLf(String str) {
+        return str.replaceAll("\r\n", "\n");
     }
 
 }
