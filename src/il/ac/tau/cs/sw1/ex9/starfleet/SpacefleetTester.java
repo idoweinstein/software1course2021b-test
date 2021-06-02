@@ -1,5 +1,6 @@
 package il.ac.tau.cs.sw1.ex9.starfleet;
 
+import il.ac.tau.cs.sw1.ex9.TesterUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -15,19 +16,23 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SpacefleetTester {
-  private static int stealthCruiserCount = 0;
   private static final String FOLDER_PATH = "./src/il/ac/tau/cs/sw1/ex9/starfleet/";
   private static final String TESTER_OUTPUT_PATH =
       FOLDER_PATH + "StarfleetManagerTester-Output.txt";
   private static final String TESTER_OUTPUT_ALL_PATH =
       FOLDER_PATH + "StarfleetManagerTester-Output-All.txt";
   private static final String TESTER_WRONG_OUTPUT = FOLDER_PATH + "MyOutput.txt";
+  private static final int COST_PER_STEALTH_CRUISER = 50;
+  private static final List<StealthCruiser> stealthCruisers = new ArrayList<>();
+  private static int stealthCruiserCount = 0;
+  private static final Supplier<Integer> addedCostPerStealthCruiserUnit = () -> stealthCruiserCount * COST_PER_STEALTH_CRUISER;
 
     @SuppressWarnings("unused")
     private static Stream<Arguments> transportShipsMaintenanceProvider() {
@@ -83,25 +88,47 @@ public class SpacefleetTester {
         );
     }
 
-    @SuppressWarnings("unused")
-    private static Stream<Arguments> stealthCruisersMaintenanceProvider1() {
-        Set<CrewMember> members = new HashSet<>(Arrays.asList(new CrewWoman(0, 0, "C")));
-        List<Weapon> weapon = Arrays.asList(new Weapon("Cap Gun", 1, 1));
+  @SuppressWarnings("unused")
+  private static Stream<Arguments> stealthCruisersMaintenanceProvider1() {
+    Set<CrewMember> members = Collections.singleton(new CrewWoman(0, 0, "C"));
+    List<Weapon> weapon = Collections.singletonList(new Weapon("Cap Gun", 1, 1));
+
+    // TODO Move initialisation to BeforeAll
+    if (stealthCruisers.size() == 0) {
+      stealthCruisers.add(
+              new StealthCruiser(
+                      "StealthCruisers #0",
+                      1,
+                      10000 / 3333f,
+                      Collections.emptySet(),
+                      Collections.emptyList()));
+      stealthCruisers.add(
+              new StealthCruiser("StealthCruisers #1", 708, 10000 / 3334f, members, weapon));
+      stealthCruisers.add(
+              new StealthCruiser(
+                      "StealthCruisers #2", 9999, 10000 / 3334f, members, Collections.emptyList()));
       stealthCruiserCount += 3;
-    return Stream.of(
-            Arguments.of(new StealthCruiser("StealthCruisers #0", 1, 10000/3333f, Collections.emptySet(), Collections.emptyList()), 5500 + stealthCruiserCount * 50, 10),
-            Arguments.of(new StealthCruiser("StealthCruisers #1", 708, 10000/3334f, members, weapon), 5500 + stealthCruiserCount * 50, 11),
-            Arguments.of(new StealthCruiser("StealthCruisers #2", 9999, 10000/3334f, members, Collections.emptyList()), 5499 + stealthCruiserCount * 50, 10)
-        );
     }
 
-    @SuppressWarnings("unused")
-    private static Stream<Arguments> stealthCruisersMaintenanceProvider2() {
-        stealthCruiserCount++;
-        return Stream.of(
-            Arguments.of(new StealthCruiser("StealthCruisers #3", 1, 5, Collections.emptySet(), Collections.emptyList()), 7500 + stealthCruiserCount * 50, 10)
-        );
-    }
+    return Stream.of(
+            Arguments.of(
+                    stealthCruisers.get(0), 5500 + addedCostPerStealthCruiserUnit.get(), 10),
+            Arguments.of(
+                    stealthCruisers.get(1), 5500 + addedCostPerStealthCruiserUnit.get(), 11),
+            Arguments.of(
+                    stealthCruisers.get(2), 5499 + addedCostPerStealthCruiserUnit.get(), 10));
+  }
+
+  @SuppressWarnings("unused")
+  private static Stream<Arguments> stealthCruisersMaintenanceProvider2() {
+    stealthCruiserCount++;
+    return Stream.of(
+        Arguments.of(
+            new StealthCruiser(
+                "StealthCruisers #3", 1, 5, Collections.emptySet(), Collections.emptyList()),
+            7500 + addedCostPerStealthCruiserUnit.get(),
+            10));
+  }
 
     @SuppressWarnings("unused")
     private static Stream<Arguments> colonialViperMaintenanceProvider() {
