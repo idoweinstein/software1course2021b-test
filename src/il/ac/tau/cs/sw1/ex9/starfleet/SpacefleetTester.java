@@ -106,8 +106,7 @@ public class SpacefleetTester {
 
     @SuppressWarnings("unused")
     private static Stream<Arguments> cylonRaiderMaintenanceProvider() {
-        // FIXME Cylon's model number must be between 0 and 12
-        Set<Cylon> members = new HashSet<>(Arrays.asList(new Cylon("Android 16", 0, 0, 16), new Cylon("Android 17", 0, 0, 17), new Cylon("Android 18", 0, 0, 18)));
+        Set<Cylon> members = new HashSet<>(Arrays.asList(new Cylon("Android 10", 0, 0, 10), new Cylon("Android 11", 0, 0, 11), new Cylon("Android 12", 0, 0, 12)));
         List<Weapon> weapon = Arrays.asList(
             new Weapon("Android Bomb", 50000, 1000),
             new Weapon("Hell's Beam", 50100, 1100),
