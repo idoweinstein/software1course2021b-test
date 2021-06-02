@@ -70,23 +70,42 @@ public class SpacefleetTester {
         Arguments.of(new Fighter("Fighter #3", 9999, 10000 / 3333f, members, weapon2), 5511, 20));
   }
 
-    @SuppressWarnings("unused")
-    private static Stream<Arguments> bombersMaintenanceProvider() {
-        List<Weapon> weapon1 = Arrays.asList(new Weapon("Molecular Disruption Device", 1000000, 100000));
-        List<Weapon> weapon2 = Arrays.asList(new Weapon("Cap Gun", 1, 1));
-        Set<CrewMember> members = new HashSet<>(Arrays.asList(new CrewWoman(11, 5, "Andrew Wiggin")));
-        return Stream.of(
-            Arguments.of(new Bomber("Starfighter #1", 2101, 96700f, members, weapon1, 0), 105000, 1000010),
-            Arguments.of(new Bomber("Starfighter #2", 2102, 967000f, Collections.emptySet(), weapon1, 1), 95000, 1000010),
-            Arguments.of(new Bomber("Starfighter #3", 2103, 9670f, members, weapon1, 2), 85000, 1000010),
-            Arguments.of(new Bomber("Starfighter #4", 2104, 90f, Collections.emptySet(), weapon1, 3), 75000, 1000010),
-            Arguments.of(new Bomber("Starfighter #5", 2105, 96000f, Collections.emptySet(), weapon1, 4), 65000, 1000010),
+  @SuppressWarnings("unused")
+  private static Stream<Arguments> bombersMaintenanceProvider() {
+    List<Weapon> weapon1 =
+            Collections.singletonList(new Weapon("Molecular Disruption Device", 1000000, 100000));
+    List<Weapon> weapon2 = Collections.singletonList(new Weapon("Cap Gun", 1, 1));
+    Set<CrewMember> members = Collections.singleton(new CrewWoman(11, 5, "Andrew Wiggin"));
+    return Stream.of(
+            // FIXME Fix speeds
+            Arguments.of(
+                    new Bomber("Starfighter #1", 2101, 96700f, members, weapon1, 0), 105000, 1000010),
+            Arguments.of(
+                    new Bomber("Starfighter #2", 2102, 967000f, Collections.emptySet(), weapon1, 1),
+                    95000,
+                    1000010),
+            Arguments.of(
+                    new Bomber("Starfighter #3", 2103, 9670f, members, weapon1, 2), 85000, 1000010),
+            Arguments.of(
+                    new Bomber("Starfighter #4", 2104, 90f, Collections.emptySet(), weapon1, 3),
+                    75000,
+                    1000010),
+            Arguments.of(
+                    new Bomber("Starfighter #5", 2105, 96000f, Collections.emptySet(), weapon1, 4),
+                    65000,
+                    1000010),
             Arguments.of(new Bomber("Starfighter #6", 2106, 9f, members, weapon1, 5), 55000, 1000010),
-            Arguments.of(new Bomber(
-                "Starfighter #1 with Cap Gun", 2101, 96700f, members,
-                Stream.concat(weapon1.stream(), weapon2.stream()).collect(Collectors.toList()), 0), 105001, 1000011)
-        );
-    }
+            Arguments.of(
+                    new Bomber(
+                            "Starfighter #1 with Cap Gun",
+                            2101,
+                            96700f,
+                            members,
+                            Stream.concat(weapon1.stream(), weapon2.stream()).collect(Collectors.toList()),
+                            0),
+                    105001,
+                    1000011));
+  }
 
   @SuppressWarnings("unused")
   private static Stream<Arguments> stealthCruisersMaintenanceProvider1() {
@@ -130,10 +149,14 @@ public class SpacefleetTester {
             10));
   }
 
-    @SuppressWarnings("unused")
-    private static Stream<Arguments> colonialViperMaintenanceProvider() {
-        Set<CrewWoman> members = new HashSet<>(Arrays.asList(new CrewWoman(1, 10, "Isabella Garcia-Shapiro"), (CrewWoman)new Officer("", 0, 0, OfficerRank.LieutenantCommander)));
-        List<Weapon> weapon = Arrays.asList(new Weapon("Super Cute Weapon", 1570796, 90));
+  @SuppressWarnings("unused")
+  private static Stream<Arguments> colonialViperMaintenanceProvider() {
+    Set<CrewWoman> members =
+            new HashSet<>(
+                    Arrays.asList(
+                            new CrewWoman(1, 10, "Isabella Garcia-Shapiro"),
+                            new Officer("", 0, 0, OfficerRank.LieutenantCommander)));
+    List<Weapon> weapon = Collections.singletonList(new Weapon("Super Cute Weapon", 1570796, 90));
 
     return Stream.of(
         Arguments.of(
@@ -231,18 +254,19 @@ public class SpacefleetTester {
     // TODO add Cylon model number tester
     // TODO Add a test that makes sure that all functions were added, and that they're functional
 
-    @ParameterizedTest
-    @MethodSource({
-        "transportShipsMaintenanceProvider",
-        "fightersMaintenanceProvider",
-        "bombersMaintenanceProvider",
-        "stealthCruisersMaintenanceProvider1",
-        "stealthCruisersMaintenanceProvider2",
-        "colonialViperMaintenanceProvider",
-        "cylonRaiderMaintenanceProvider"
-    })
-    public void testBomberTechnicianReduction(Spaceship spaceship, int expectedMaintenance, int expectedFirePower) {
-        assertEquals(
+  @ParameterizedTest
+  @MethodSource({
+          "transportShipsMaintenanceProvider",
+          "fightersMaintenanceProvider",
+          "bombersMaintenanceProvider",
+          "stealthCruisersMaintenanceProvider1",
+          "stealthCruisersMaintenanceProvider2",
+          "colonialViperMaintenanceProvider",
+          "cylonRaiderMaintenanceProvider"
+  })
+  public void testAnnualMaintenanceCost(
+          Spaceship spaceship, int expectedMaintenance, int expectedFirePower) {
+    assertEquals(
             expectedMaintenance,
             spaceship.getAnnualMaintenanceCost(),
             "Maintenance - " + spaceship.getName());
