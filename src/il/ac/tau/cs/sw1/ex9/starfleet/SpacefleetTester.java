@@ -34,18 +34,19 @@ public class SpacefleetTester {
   private static int stealthCruiserCount = 0;
   private static final Supplier<Integer> addedCostPerStealthCruiserUnit = () -> stealthCruiserCount * COST_PER_STEALTH_CRUISER;
 
-    @SuppressWarnings("unused")
-    private static Stream<Arguments> transportShipsMaintenanceProvider() {
-        Set<CrewMember> members = new HashSet<>(Arrays.asList(new Cylon("Jane", 0, 0, 0)));
-        return Stream.of(
-            Arguments.of(new TransportShip("IFcoltrans1", 2, 1f, members, 0, 0), 3000, 10),
-            Arguments.of(new TransportShip("IFcoltrans2", 20, 10f, members, 1, 0), 3005, 10),
-            Arguments.of(new TransportShip("IFcoltrans3", 2000, 100f, Collections.emptySet(), 10, 0), 3050, 10),
-            Arguments.of(new TransportShip("IFcoltrans4", 20000, 1000f, Collections.emptySet(), 0, 1), 3003, 10),
-            Arguments.of(new TransportShip("IFcoltrans5", 200000, 10000f, members, 0, 10), 3030, 10),
-            Arguments.of(new TransportShip("IFcoltrans6", 2000000, 100000f, members, 100, 200), 4100, 10)
-        );
-    }
+  @SuppressWarnings("unused")
+  private static Stream<Arguments> transportShipsMaintenanceProvider() {
+    Set<CrewMember> members = Collections.singleton(new Cylon("Jane", 0, 0, 0));
+    return Stream.of(
+            Arguments.of(new TransportShip("IFcoltrans1", 2, 0f, members, 0, 0), 3000, 10),
+            Arguments.of(new TransportShip("IFcoltrans2", 20, 2.5f, members, 1, 0), 3005, 10),
+            Arguments.of(
+                    new TransportShip("IFcoltrans3", 2000, 3.7f, Collections.emptySet(), 10, 0), 3050, 10),
+            Arguments.of(
+                    new TransportShip("IFcoltrans4", 20000, 5.1f, Collections.emptySet(), 0, 1), 3003, 10),
+            Arguments.of(new TransportShip("IFcoltrans5", 200000, 7.6f, members, 0, 10), 3030, 10),
+            Arguments.of(new TransportShip("IFcoltrans6", 2000000, 10f, members, 100, 200), 4100, 10));
+  }
 
   @SuppressWarnings("unused")
   private static Stream<Arguments> fightersMaintenanceProvider() {
