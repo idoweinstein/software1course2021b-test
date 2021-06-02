@@ -42,18 +42,28 @@ public class SpacefleetTester {
         );
     }
 
-    @SuppressWarnings("unused")
-    private static Stream<Arguments> fightersMaintenanceProvider() {
-        Set<CrewMember> members = new HashSet<>(Arrays.asList(new CrewWoman(0, 0, "A"), new Cylon("B", 1, 1, 1)));
-        List<Weapon> weapon1 = Arrays.asList(new Weapon("Cap Gun", 1, 1));
-        List<Weapon> weapon2 = Arrays.asList(new Weapon("Water Gun", 0, 1), new Weapon("Flash Pistol", 10, 10));
-        return Stream.of(
-            Arguments.of(new Fighter("Fighter #0", 1, 10000/3333, Collections.emptySet(), Collections.emptyList()), 5500, 10),
-            Arguments.of(new Fighter("Fighter #1", 708, 10000/3334, members, weapon1), 4501, 11),
-            Arguments.of(new Fighter("Fighter #2", 9999, 10000/3334, Collections.emptySet(), weapon2), 4511, 20),
-            Arguments.of(new Fighter("Fighter #3", 9999, 10000/3333, members, weapon2), 5511, 20)
-        );
-    }
+  @SuppressWarnings("unused")
+  private static Stream<Arguments> fightersMaintenanceProvider() {
+    Set<CrewMember> members =
+        new HashSet<>(
+            Arrays.asList(
+                new CrewWoman(0, 0, "Marvin the Paranoid Android"), new Cylon("V", 1, 1, 1)));
+    List<Weapon> weapon1 = Collections.singletonList(new Weapon("Cap Gun", 1, 1));
+    List<Weapon> weapon2 =
+        Arrays.asList(new Weapon("Water Gun", 0, 1), new Weapon("Flash Pistol", 10, 10));
+    return Stream.of(
+        Arguments.of(
+            new Fighter(
+                "Fighter #0", 1, 10000 / 3333f, Collections.emptySet(), Collections.emptyList()),
+            5500,
+            10),
+        Arguments.of(new Fighter("Fighter #1", 708, 10000 / 3334f, members, weapon1), 5500, 11),
+        Arguments.of(
+            new Fighter("Fighter #2", 9999, 10000 / 3334f, Collections.emptySet(), weapon2),
+            5510,
+            20),
+        Arguments.of(new Fighter("Fighter #3", 9999, 10000 / 3333f, members, weapon2), 5511, 20));
+  }
 
     @SuppressWarnings("unused")
     private static Stream<Arguments> bombersMaintenanceProvider() {
@@ -77,11 +87,11 @@ public class SpacefleetTester {
     private static Stream<Arguments> stealthCruisersMaintenanceProvider1() {
         Set<CrewMember> members = new HashSet<>(Arrays.asList(new CrewWoman(0, 0, "C")));
         List<Weapon> weapon = Arrays.asList(new Weapon("Cap Gun", 1, 1));
-        stealthCruiserCount += 3;
-        return Stream.of(
-            Arguments.of(new StealthCruiser("StealthCruisers #0", 1, 10000/3333, Collections.emptySet(), Collections.emptyList()), 5500 + stealthCruiserCount * 50, 10),
-            Arguments.of(new StealthCruiser("StealthCruisers #1", 708, 10000/3334, members, weapon), 4501 + stealthCruiserCount * 50, 11),
-            Arguments.of(new StealthCruiser("StealthCruisers #2", 9999, 10000/3334, members, Collections.emptyList()), 4500 + stealthCruiserCount * 50, 10)
+      stealthCruiserCount += 3;
+    return Stream.of(
+            Arguments.of(new StealthCruiser("StealthCruisers #0", 1, 10000/3333f, Collections.emptySet(), Collections.emptyList()), 5500 + stealthCruiserCount * 50, 10),
+            Arguments.of(new StealthCruiser("StealthCruisers #1", 708, 10000/3334f, members, weapon), 5500 + stealthCruiserCount * 50, 11),
+            Arguments.of(new StealthCruiser("StealthCruisers #2", 9999, 10000/3334f, members, Collections.emptyList()), 5499 + stealthCruiserCount * 50, 10)
         );
     }
 
@@ -98,37 +108,98 @@ public class SpacefleetTester {
         Set<CrewWoman> members = new HashSet<>(Arrays.asList(new CrewWoman(1, 10, "Isabella Garcia-Shapiro"), (CrewWoman)new Officer("", 0, 0, OfficerRank.LieutenantCommander)));
         List<Weapon> weapon = Arrays.asList(new Weapon("Super Cute Weapon", 1570796, 90));
 
-        return Stream.of(
-            Arguments.of(new ColonialViper("ColonialViper #0", 1, 10000/3333, Collections.emptySet(), Collections.emptyList()), 5500, 10),
-            Arguments.of(new ColonialViper("ColonialViper #1", 708, 10000/3334, Collections.emptySet(), Collections.emptyList()), 5000, 10),
-            Arguments.of(new ColonialViper("ColonialViper #2", 78, 10, Collections.emptySet(), Collections.emptyList()), 9000, 10),
-            Arguments.of(new ColonialViper("ColonialViper #3", 99, 10, members, Collections.emptyList()), 10000, 10),
-            Arguments.of(new ColonialViper("ColonialViper #4", 666, 10, members, weapon), 10090, 1570806)
-        );
-    }
+    return Stream.of(
+        Arguments.of(
+            new ColonialViper(
+                "ColonialViper #0",
+                1,
+                10000 / 3333f,
+                Collections.emptySet(),
+                Collections.emptyList()),
+            5500,
+            10),
+        Arguments.of(
+            new ColonialViper(
+                "ColonialViper #1",
+                708,
+                10000 / 3334f,
+                Collections.emptySet(),
+                Collections.emptyList()),
+            5499,
+            10),
+        Arguments.of(
+            new ColonialViper(
+                "ColonialViper #2", 78, 10, Collections.emptySet(), Collections.emptyList()),
+            9000,
+            10),
+        Arguments.of(
+            new ColonialViper("ColonialViper #3", 99, 10, members, Collections.emptyList()),
+            10000,
+            10),
+        Arguments.of(
+            new ColonialViper("ColonialViper #4", 666, 10, members, weapon), 10090, 1570806));
+  }
 
-    @SuppressWarnings("unused")
-    private static Stream<Arguments> cylonRaiderMaintenanceProvider() {
-        Set<Cylon> members = new HashSet<>(Arrays.asList(new Cylon("Android 10", 0, 0, 10), new Cylon("Android 11", 0, 0, 11), new Cylon("Android 12", 0, 0, 12)));
-        List<Weapon> weapon = Arrays.asList(
+  @SuppressWarnings("unused")
+  private static Stream<Arguments> cylonRaiderMaintenanceProvider() {
+    Set<Cylon> members =
+        new HashSet<>(
+            Arrays.asList(
+                new Cylon("Android 10", 0, 0, 10),
+                new Cylon("Android 11", 0, 0, 11),
+                new Cylon("Android 42", 42, 42, 12)));
+    List<Weapon> weapon =
+        Arrays.asList(
             new Weapon("Android Bomb", 50000, 1000),
             new Weapon("Hell's Beam", 50100, 1100),
             new Weapon("Hell's Flash", 50200, 1200),
-            new Weapon("Full Power Hell Flash", 50300, 1300),
+            new Weapon("Galaxy Node S7", 50300, 1300),
             new Weapon("Self Destruct Device", 1000000, 10000));
 
-        return Stream.of(
-            Arguments.of(new CylonRaider("CylonRaider #0", 1, 10000/3333, Collections.emptySet(), Collections.emptyList()), 7100, 10),
-            Arguments.of(new CylonRaider("CylonRaider #1", 708, 10000/3334, Collections.emptySet(), Collections.emptyList()), 5900, 10),
-            Arguments.of(new CylonRaider("CylonRaider #2", 78, 10, Collections.emptySet(), Collections.emptyList()), 15500, 10),
-            Arguments.of(new CylonRaider("CylonRaider #3", 99, 10, members, Collections.emptyList()), 17000, 10),
-            Arguments.of(new CylonRaider("CylonRaider #4", 666, 10, members, weapon.subList(0, 1)), 18000, 50010),
-            Arguments.of(new CylonRaider("CylonRaider #5", 666, 10, members, weapon.subList(0, 2)), 19100, 100110),
-            Arguments.of(new CylonRaider("CylonRaider #6", 666, 10, members, weapon.subList(0, 3)), 20300, 150310),
-            Arguments.of(new CylonRaider("CylonRaider #7", 666, 10, members, weapon.subList(0, 4)), 21600, 200610),
-            Arguments.of(new CylonRaider("CylonRaider #8", 666, 10, members, weapon), 31600, 1200610)
-        );
-    }
+    return Stream.of(
+        Arguments.of(
+            new CylonRaider(
+                "CylonRaider #0",
+                1,
+                10000 / 3333f,
+                Collections.emptySet(),
+                Collections.emptyList()),
+            7100,
+            10),
+        Arguments.of(
+            new CylonRaider(
+                "CylonRaider #1",
+                708,
+                10000 / 3334f,
+                Collections.emptySet(),
+                Collections.emptyList()),
+            7099,
+            10),
+        Arguments.of(
+            new CylonRaider(
+                "CylonRaider #2", 78, 10, Collections.emptySet(), Collections.emptyList()),
+            15500,
+            10),
+        Arguments.of(
+            new CylonRaider("CylonRaider #3", 99, 10, members, Collections.emptyList()), 17000, 10),
+        Arguments.of(
+            new CylonRaider("CylonRaider #4", 666, 10, members, weapon.subList(0, 1)),
+            18000,
+            50010),
+        Arguments.of(
+            new CylonRaider("CylonRaider #5", 666, 10, members, weapon.subList(0, 2)),
+            19100,
+            100110),
+        Arguments.of(
+            new CylonRaider("CylonRaider #6", 666, 10, members, weapon.subList(0, 3)),
+            20300,
+            150310),
+        Arguments.of(
+            new CylonRaider("CylonRaider #7", 666, 10, members, weapon.subList(0, 4)),
+            21600,
+            200610),
+        Arguments.of(new CylonRaider("CylonRaider #8", 666, 10, members, weapon), 31600, 1200610));
+  }
 
     // TODO add Cylon model number tester
     // TODO Add a test that makes sure that all functions were added, and that they're functional
