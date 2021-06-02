@@ -245,14 +245,10 @@ public class SpacefleetTester {
         assertEquals(
             expectedMaintenance,
             spaceship.getAnnualMaintenanceCost(),
-            "Maintenance - " + spaceship.getName()
-        );
-        assertEquals(
-            expectedFirePower,
-            spaceship.getFirePower(),
-            "Fire Power - " + spaceship.getName()
-        );
-    }
+            "Maintenance - " + spaceship.getName());
+    assertEquals(
+            expectedFirePower, spaceship.getFirePower(), "Fire Power - " + spaceship.getName());
+  }
 
     @ParameterizedTest
     @MethodSource({
@@ -269,56 +265,61 @@ public class SpacefleetTester {
         int firepowerBefore = spaceship.getFirePower();
         String reprBefore = spaceship.toString();
 
-        Set<? extends CrewMember> crewBefore = spaceship.getCrewMembers();
-        Set<? extends CrewMember> crewToClear = spaceship.getCrewMembers();
-        crewToClear.clear();
-        Set<? extends CrewMember> crewAfter = spaceship.getCrewMembers();
-
-        assertTrue(
-            crewBefore.equals(crewAfter),
-            String.format("%s crew is not immutable", spaceship.getName())
-        );
-
-        assertEquals(
-            maintenanceBefore, 
-            spaceship.getAnnualMaintenanceCost(),
-            spaceship.getName()
-        );
-
-        assertEquals(
-            firepowerBefore, 
-            spaceship.getFirePower(),
-            spaceship.getName()
-        );
-
-        assertTrue(reprBefore.equals(spaceship.toString()));
+    Set<? extends CrewMember> crewBefore = spaceship.getCrewMembers();
+    Set<? extends CrewMember> crewToClear = spaceship.getCrewMembers();
+    try {
+      crewToClear.clear();
+    } catch (UnsupportedOperationException ignored) {
     }
+    Set<? extends CrewMember> crewAfter = spaceship.getCrewMembers();
 
-    @ParameterizedTest
-    @MethodSource({
-        "fightersMaintenanceProvider",
-        "bombersMaintenanceProvider",
-        "stealthCruisersMaintenanceProvider1",
-        "stealthCruisersMaintenanceProvider2",
-        "colonialViperMaintenanceProvider",
-        "cylonRaiderMaintenanceProvider"
-    })
-    public void testWeaponImmutability(Spaceship spaceship) {
-        assertDoesNotThrow(() -> {
-            @SuppressWarnings("unchecked")
-            List<Weapon> weaponBefore = (List<Weapon>)spaceship.getClass().getMethod("getWeapon").invoke(spaceship);
-            @SuppressWarnings("unchecked")
-            List<Weapon> weaponToClear = (List<Weapon>)spaceship.getClass().getMethod("getWeapon").invoke(spaceship);
-            weaponToClear.clear();
-            @SuppressWarnings("unchecked")
-            List<Weapon> weaponAfter = (List<Weapon>)spaceship.getClass().getMethod("getWeapon").invoke(spaceship);
+    assertEquals(
+            crewBefore, crewAfter, String.format("%s crew is not immutable", spaceship.getName()));
 
-            assertTrue(
-                weaponBefore.equals(weaponAfter),
-                String.format("%s weapon is not immutable", spaceship.getName())
-            );
-        });
+    assertEquals(maintenanceBefore, spaceship.getAnnualMaintenanceCost(), spaceship.getName());
+
+    assertEquals(firepowerBefore, spaceship.getFirePower(), spaceship.getName());
+
+    assertEquals(reprBefore, spaceship.toString());
+  }
+
+  @SuppressWarnings("unchecked")
+  @ParameterizedTest
+  @MethodSource({
+          "fightersMaintenanceProvider",
+          "bombersMaintenanceProvider",
+          "stealthCruisersMaintenanceProvider1",
+          "stealthCruisersMaintenanceProvider2",
+          "colonialViperMaintenanceProvider",
+          "cylonRaiderMaintenanceProvider"
+  })
+  public void testWeaponImmutability(Spaceship spaceship) {
+    String method = "getWeapon";
+
+    try {
+      Method getWeaponMethod = spaceship.getClass().getMethod(method);
+      List<Weapon> weaponBefore = (List<Weapon>) getWeaponMethod.invoke(spaceship);
+      weaponBefore.clear();
+      List<Weapon> weaponAfter = (List<Weapon>) getWeaponMethod.invoke(spaceship);
+      assertEquals(
+              weaponBefore,
+              weaponAfter,
+              String.format("%s weapon is not immutable", spaceship.getName()));
+    } catch (IllegalAccessException e) {
+      Assertions.fail(String.format("The method '%s' is inaccessible", method));
+      e.printStackTrace();
+    } catch (InvocationTargetException e) {
+      Assertions.fail(String.format("'%s' threw an exception while being invoked", method));
+      e.printStackTrace();
+    } catch (NoSuchMethodException e) {
+      Assertions.fail(
+              String.format(
+                      "The method '%s' does not exist in %s",
+                      method, spaceship.getClass().getSimpleName()));
+      e.printStackTrace();
+    } catch (UnsupportedOperationException ignored) {
     }
+  }
 
   @Test
   public void testTeachingAssistantsTest() throws IOException {
