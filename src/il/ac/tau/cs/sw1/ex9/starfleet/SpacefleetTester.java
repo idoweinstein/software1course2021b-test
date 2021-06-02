@@ -219,15 +219,19 @@ public class SpacefleetTester {
         });
     }
 
-    @Test
-    public void testTeachingAssistantsTest() throws IOException {
-        Path path = Paths.get(stealthCruiserCount == 0 ? TESTER_OUTPUT_PATH : TESTER_OUTPUT_ALL_PATH);
-        String output = TesterUtil.testOutput(StarfleetManagerTester::main, new String[]{ }, "StarfleetManagerTester.main");
-        String expected = new String(
+  @Test
+  public void testTeachingAssistantsTest() throws IOException {
+    Path path = Paths.get(stealthCruiserCount == 0 ? TESTER_OUTPUT_PATH : TESTER_OUTPUT_ALL_PATH);
+
+    String output =
+        il.ac.tau.cs.sw1.ex9.starfleet.TesterUtil.testOutput(
+            StarfleetManagerTester::main, new String[] {}, "StarfleetManagerTester.main");
+    stealthCruiserCount += 3;
+    String expected =
+        new String(
             Files.readAllBytes(
-                Paths.get(stealthCruiserCount == 0 ? TESTER_OUTPUT_PATH : TESTER_OUTPUT_ALL_PATH)), 
-                StandardCharsets.UTF_8
-        );
+                Paths.get(stealthCruiserCount == 0 ? TESTER_OUTPUT_PATH : TESTER_OUTPUT_ALL_PATH)),
+            StandardCharsets.UTF_8);
 
         output = output.replaceAll("\r\n", "\n");
         expected = expected.replaceAll("\r\n", "\n");
