@@ -82,7 +82,6 @@ public class SpacefleetTester {
     List<Weapon> combinedWeapons =
         Stream.concat(weapon1.stream(), weapon2.stream()).collect(Collectors.toList());
     return Stream.of(
-        // FIXME Fix speeds
         Arguments.of(new Bomber("Starfighter #1", 2101, 0f, members, weapon1, 0), 105000, 1000010),
         Arguments.of(
             new Bomber("Starfighter #2", 2102, 1f, Collections.emptySet(), weapon1, 1),
@@ -389,8 +388,7 @@ public class SpacefleetTester {
     assertTrue(cylonRaider instanceof Spaceship);
   }
 
-  // TODO add Cylon model number tester
-  // TODO Add a test that makes sure that all functions were added, and that they're functional
+  // TODO Add a test for every function
 
   @ParameterizedTest
   @MethodSource({
