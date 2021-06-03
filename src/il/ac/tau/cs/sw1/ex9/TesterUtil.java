@@ -5,7 +5,6 @@ import java.io.PrintStream;
 import java.util.function.Consumer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TesterUtil {
     public static String testOutput(Consumer<String[]> function, String[] args, String name) {

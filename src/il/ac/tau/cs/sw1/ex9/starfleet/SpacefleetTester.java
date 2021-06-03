@@ -293,6 +293,7 @@ public class SpacefleetTester {
     try {
       crewToClear.clear();
     } catch (UnsupportedOperationException ignored) {
+        // Do nothing - expected behavior
     }
     Set<? extends CrewMember> crewAfter = spaceship.getCrewMembers();
 
@@ -322,7 +323,8 @@ public class SpacefleetTester {
     try {
       Method getWeaponMethod = spaceship.getClass().getMethod(method);
       List<Weapon> weaponBefore = (List<Weapon>) getWeaponMethod.invoke(spaceship);
-      weaponBefore.clear();
+      List<Weapon> weaponToClear = (List<Weapon>) getWeaponMethod.invoke(spaceship);
+      weaponToClear.clear();
       List<Weapon> weaponAfter = (List<Weapon>) getWeaponMethod.invoke(spaceship);
       assertEquals(
           weaponBefore,
@@ -341,6 +343,7 @@ public class SpacefleetTester {
               method, spaceship.getClass().getSimpleName()));
       e.printStackTrace();
     } catch (UnsupportedOperationException ignored) {
+        // Do nothing - expected behavior
     }
   }
 
@@ -367,9 +370,9 @@ public class SpacefleetTester {
           expected,
           output,
           String.format(
-              "Your output and the expeced output do not match. Writing your result into a file. %n"
+              "Your output and the expected output do not match. Writing your result into a file. %n"
                   + "You can compare the results by running the following command (red - expected, green - yours):%n"
-                  + "git --no-pager diff --no-index --ignore-space-at-eol %s %s %n%n"
+                  + "git --no-pager diff --no-index --ignore-space-at-eol \"%s\" \"%s\" %n%n"
                   + "Afterwards, please delete the file by running (on a Linux machine):%n"
                   + "rm %s%n"
                   + "or (on a Windows machine):%n"
