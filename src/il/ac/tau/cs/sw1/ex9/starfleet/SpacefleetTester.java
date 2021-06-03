@@ -1,6 +1,8 @@
 package il.ac.tau.cs.sw1.ex9.starfleet;
 
 import il.ac.tau.cs.sw1.ex9.TesterUtil;
+
+import org.junit.Ignore;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -313,7 +315,7 @@ public class SpacefleetTester {
   }
 
   @Test
-  public void testOfficerImplementsCrewWoman() {
+  public void testOfficerImplementsCrewMember() {
     Officer officer = new Officer("Sarah Briggs", 30, 10, OfficerRank.Commander);
     //noinspection ConstantConditions
     assertTrue(officer instanceof CrewMember);
@@ -357,7 +359,7 @@ public class SpacefleetTester {
   }
 
   @Test
-  public void testStealthCruiserImplementsFighter() {
+  public void testStealthCruiserImplementsSpaceship() {
     StealthCruiser stealthCruiser =
         new StealthCruiser(
             "Normandy", 2183, 2.98f, Collections.emptySet(), Collections.emptyList());
@@ -366,7 +368,7 @@ public class SpacefleetTester {
   }
 
   @Test
-  public void testColonialViperImplementsFighter() {
+  public void testColonialViperImplementsSpaceship() {
     ColonialViper colonialViper =
         new ColonialViper(
             "Eurofighter Typhoon", 15, 0.1f, Collections.emptySet(), Collections.emptyList());
@@ -375,7 +377,7 @@ public class SpacefleetTester {
   }
 
   @Test
-  public void testCylonRaiderImplementsFighter() {
+  public void testCylonRaiderImplementsSpaceship() {
     CylonRaider cylonRaider =
         new CylonRaider(
             "cba to find any cool names",
@@ -400,7 +402,7 @@ public class SpacefleetTester {
     "colonialViperMaintenanceProvider",
     "cylonRaiderMaintenanceProvider"
   })
-  public void testAnnualMaintenanceCost(
+  public void testAnnualMaintenanceCostAndFirePower(
       Spaceship spaceship, int expectedMaintenance, int expectedFirePower) {
     assertEquals(
         expectedMaintenance,
@@ -410,6 +412,7 @@ public class SpacefleetTester {
         expectedFirePower, spaceship.getFirePower(), "Fire Power - " + spaceship.getName());
   }
 
+  @Ignore
   @ParameterizedTest
   @MethodSource({
     "transportShipsMaintenanceProvider",
@@ -444,6 +447,7 @@ public class SpacefleetTester {
     assertEquals(reprBefore, spaceship.toString());
   }
 
+  @Ignore
   @SuppressWarnings("unchecked")
   @ParameterizedTest
   @MethodSource({
