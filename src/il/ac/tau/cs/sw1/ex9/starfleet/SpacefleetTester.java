@@ -1,5 +1,6 @@
 package il.ac.tau.cs.sw1.ex9.starfleet;
 
+import com.sun.org.apache.xpath.internal.Arg;
 import il.ac.tau.cs.sw1.ex9.TesterUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SpacefleetTester {
   private static final String FOLDER_PATH = "./src/il/ac/tau/cs/sw1/ex9/starfleet/";
@@ -246,6 +248,63 @@ public class SpacefleetTester {
             21600,
             200610),
         Arguments.of(new CylonRaider("CylonRaider #8", 666, 10, members, weapon), 31600, 1200610));
+  }
+
+  @SuppressWarnings("unused")
+  private static Stream<Arguments> testContainedMethodsProvider() {
+    List<String> crewMemberMethods = Arrays.asList("getName", "getAge", "getYearsInService");
+
+    List<String> officerMethods = new ArrayList<>(crewMemberMethods);
+    officerMethods.add("getRank");
+
+    List<String> cylonMethods = new ArrayList<>(crewMemberMethods);
+    cylonMethods.add("getModelNumber");
+
+    List<String> spaceshipMethods =
+        Arrays.asList(
+            "getName",
+            "getCommissionYear",
+            "getMaximalSpeed",
+            "getFirePower",
+            "getCrewMembers",
+            "getAnnualMaintenanceCost");
+
+    List<String> transportShipMethods = new ArrayList<>(spaceshipMethods);
+    transportShipMethods.add("getCargoCapacity");
+    transportShipMethods.add("getPassengerCapacity");
+
+    List<String> fighterMethods = new ArrayList<>(spaceshipMethods);
+    fighterMethods.add("getWeapon");
+    fighterMethods.add("getFirePower");
+
+    List<String> bomberMethods = new ArrayList<>(fighterMethods);
+    bomberMethods.add("getNumberOfTechnicians");
+
+    return Stream.of(
+        Arguments.of(CrewMember.class, crewMemberMethods),
+        Arguments.of(CrewWoman.class, crewMemberMethods),
+        Arguments.of(Officer.class, officerMethods),
+        Arguments.of(Cylon.class, cylonMethods),
+        Arguments.of(Spaceship.class, spaceshipMethods),
+        Arguments.of(TransportShip.class, transportShipMethods),
+        Arguments.of(Fighter.class, fighterMethods),
+        Arguments.of(Bomber.class, bomberMethods),
+        Arguments.of(StealthCruiser.class, fighterMethods),
+        Arguments.of(ColonialViper.class, fighterMethods),
+        Arguments.of(CylonRaider.class, fighterMethods));
+  }
+
+  @ParameterizedTest
+  @MethodSource("testContainedMethodsProvider")
+  public void testContainedMethods(Class<?> clazz, List<String> expectedMethods) {
+    List<String> methods =
+        Arrays.stream(clazz.getMethods()).map(Method::getName).collect(Collectors.toList());
+    expectedMethods.forEach(
+        method ->
+            assertTrue(
+                methods.contains(method),
+                String.format(
+                    "The method '%s' is missing from %s", method, clazz.getSimpleName())));
   }
 
   // TODO add Cylon model number tester
