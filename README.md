@@ -39,7 +39,7 @@ VSCode: https://youtu.be/LRkqvZs857c?t=176
   cd hw$EX_NO-$USERNAME
   wget https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.7.2/junit-platform-console-standalone-1.7.2.jar
   mkdir build
-  find ./src/il/ac/tau/cs/sw1/ex$EX_NO -name '*.java' | xargs javac -d build -cp junit-platform-console-standalone-1.7.2.jar
+  find ./src/il/ac/tau/cs/sw1/ex$EX_NO -name '*.java' | xargs javac -Xlint:all -Werror -d build -cp junit-platform-console-standalone-1.7.2.jar
   ```
 * Run the tests:
   ```
