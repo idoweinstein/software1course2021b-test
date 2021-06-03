@@ -1,0 +1,124 @@
+*** STARFLEET COMMAND OFFICIAL REPORT ***
+
+Fleet ships sorted by fire power and commission year:
+Fighter
+	Name=USS Defiant
+	CommissionYear=2423
+	MaximalSpeed=6.0
+	FirePower=290
+	CrewMembers=130
+	AnnualMaintenanceCost=8990
+	WeaponArray=[Weapon [name=Laser Cannons, firePower=10, annualMaintenanceCost=110], Weapon [name=Quantum Torpedoes, firePower=120, annualMaintenanceCost=100], Weapon [name=TAU Phasers, firePower=150, annualMaintenanceCost=280]]
+Bomber
+	Name=USS Yamaguchi 
+	CommissionYear=2416
+	MaximalSpeed=9.9
+	FirePower=140
+	CrewMembers=233
+	AnnualMaintenanceCost=5185
+	WeaponArray=[Weapon [name=Laser Cannons, firePower=10, annualMaintenanceCost=110], Weapon [name=Photon Torpedoes, firePower=120, annualMaintenanceCost=260]]
+	NumberOfTechnicians=5
+ColonialViper
+	Name=Viper1
+	CommissionYear=2451
+	MaximalSpeed=7.2
+	FirePower=50
+	CrewMembers=1
+	AnnualMaintenanceCost=8500
+	WeaponArray=[Weapon [name=Laser Cannons, firePower=10, annualMaintenanceCost=100], Weapon [name=Evaporator, firePower=30, annualMaintenanceCost=300]]
+ColonialViper
+	Name=Viper2
+	CommissionYear=2451
+	MaximalSpeed=7.2
+	FirePower=50
+	CrewMembers=1
+	AnnualMaintenanceCost=8500
+	WeaponArray=[Weapon [name=Laser Cannons, firePower=10, annualMaintenanceCost=100], Weapon [name=Evaporator, firePower=30, annualMaintenanceCost=300]]
+StealthCruiser
+	Name=USS Galaxy
+	CommissionYear=2370
+	MaximalSpeed=9.0
+	FirePower=50
+	CrewMembers=4
+	AnnualMaintenanceCost=12250
+	WeaponArray=[Weapon [name=Laser Cannons, firePower=10, annualMaintenanceCost=100], Weapon [name=Evaporator, firePower=30, annualMaintenanceCost=300]]
+CylonRaider
+	Name=Raider 1
+	CommissionYear=2056
+	MaximalSpeed=3.5
+	FirePower=50
+	CrewMembers=1
+	AnnualMaintenanceCost=8600
+	WeaponArray=[Weapon [name=Laser Cannons, firePower=10, annualMaintenanceCost=100], Weapon [name=Evaporator, firePower=30, annualMaintenanceCost=300]]
+StealthCruiser
+	Name=USS Odyssey
+	CommissionYear=2419
+	MaximalSpeed=9.0
+	FirePower=20
+	CrewMembers=4
+	AnnualMaintenanceCost=11950
+	WeaponArray=[Weapon [name=Laser Cannons, firePower=10, annualMaintenanceCost=100]]
+StealthCruiser
+	Name=USS Amsterdamer
+	CommissionYear=2410
+	MaximalSpeed=9.2
+	FirePower=20
+	CrewMembers=3
+	AnnualMaintenanceCost=12150
+	WeaponArray=[Weapon [name=Laser Cannons, firePower=10, annualMaintenanceCost=100]]
+TransportShip
+	Name=USS Lantree
+	CommissionYear=2457
+	MaximalSpeed=5.1
+	FirePower=10
+	CrewMembers=9
+	AnnualMaintenanceCost=48000
+	CargoCapacity=3000
+	PassengerCapacity=10000
+TransportShip
+	Name=USS Astral Queen
+	CommissionYear=2396
+	MaximalSpeed=5.1
+	FirePower=10
+	CrewMembers=23
+	AnnualMaintenanceCost=28000
+	CargoCapacity=2000
+	PassengerCapacity=5000
+
+Ship counts by type:
+	1	Bomber
+	2	ColonialViper
+	1	CylonRaider
+	1	Fighter
+	3	StealthCruiser
+	2	TransportShip
+
+Weapon types:
+	Evaporator
+	Laser Cannons
+	Photon Torpedoes
+	Quantum Torpedoes
+	TAU Phasers
+
+Highest ranking officer per ship:
+	Captain	Archer #171	USS Amsterdamer
+	Captain	Archer #27	USS Lantree
+	Lieutenant	Cara Thrace	Viper2
+	Captain	Data #167	USS Odyssey
+	Captain	FitzRoy #163	USS Galaxy
+	Captain	Lee Adama	Viper1
+	Captain	Nemo #9	USS Astral Queen
+	Captain	Picard #194	USS Yamaguchi 
+	Captain	Sisko #52	USS Defiant
+
+Officer ranks sorted ascendingly by popularity:
+	7	LieutenantCommander
+	7	Commander
+	8	Captain
+	15	Lieutenant
+	22	Ensign
+
+Fleet Totals:
+	Total fleet crew members:			409
+	Average age of fleet officers:			42.66
+	Total annual maintenance cost:			152125

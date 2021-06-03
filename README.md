@@ -24,24 +24,19 @@ VSCode: https://youtu.be/LRkqvZs857c?t=176
   setenv USERNAME israelaisraelit
   setenv EX_NO 20
   ```
-* Clone your private github repository (enter your github username and password if asked for):
+* Clone the tests:
   ```
-  mkdir git
-  cd git
-  git clone https://github.com/software1course2021b/hw$EX_NO-$USERNAME.git
-  ```
-* Set the tests up and build them:
-  ```
+  mkdir -p git/$EX_NO && cd git/$EX_NO
   git clone https://github.com/idoweinstein/software1course2021b-test.git --depth 1
-  rm -rf software1course2021b-test/.git
-  cp -Rn software1course2021b-test/* hw$EX_NO-$USERNAME
-  rm -rf software1course2021b-test
-  cd hw$EX_NO-$USERNAME
-  wget https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.7.2/junit-platform-console-standalone-1.7.2.jar
-  mkdir build
-  find ./src/il/ac/tau/cs/sw1/ex$EX_NO -name '*.java' | xargs javac -d build -cp junit-platform-console-standalone-1.7.2.jar
+  cd software1course2021b-test
   ```
-* Run the tests:
+* Run tests (enter your github password if asked for):
   ```
-  java -jar junit-platform-console-standalone-1.7.2.jar --class-path ./build --include-classname=.\* --scan-class-path
+  make run
+  ```
+* (Optional) Re-run tests after updating your code on github: 
+  ```
+  make clean
+  make update
+  make run
   ``` 
