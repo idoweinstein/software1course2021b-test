@@ -360,6 +360,7 @@ public class SpacefleetTester {
 
   @Test
   public void testStealthCruiserImplementsSpaceship() {
+    stealthCruiserCount++;
     StealthCruiser stealthCruiser =
         new StealthCruiser(
             "Normandy", 2183, 2.98f, Collections.emptySet(), Collections.emptyList());
