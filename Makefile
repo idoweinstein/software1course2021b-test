@@ -33,7 +33,7 @@ junit-platform-console-standalone-1.7.2.jar:
 build: merge $(LIBS)
 	@echo Building the project
 	@mkdir $@
-	find ./src/il/ac/tau/cs/sw1/ex$(EX_NO) -name '*.java' | xargs $(JAVAC) -d $@ -cp $(LIBS)
+	find ./src/il/ac/tau/cs/sw1/ex$(EX_NO) -name '*.java' | xargs $(JAVAC) $(JAVAC_FLAGS) -d $@ -cp $(LIBS)
 
 .PHONY: run
 run: build
