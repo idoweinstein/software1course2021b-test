@@ -1,6 +1,5 @@
 package il.ac.tau.cs.sw1.ex9.starfleet;
 
-import com.sun.org.apache.xpath.internal.Arg;
 import il.ac.tau.cs.sw1.ex9.TesterUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -16,7 +15,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.security.cert.CRL;
 import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -319,7 +317,7 @@ public class SpacefleetTester {
   public void testOfficerImplementsCrewWoman() {
     Officer officer = new Officer("Sarah Briggs", 30, 10, OfficerRank.Commander);
     //noinspection ConstantConditions
-    assertTrue(officer instanceof CrewWoman);
+    assertTrue(officer instanceof CrewMember);
   }
 
   @Test
@@ -365,7 +363,7 @@ public class SpacefleetTester {
         new StealthCruiser(
             "Normandy", 2183, 2.98f, Collections.emptySet(), Collections.emptyList());
     //noinspection ConstantConditions
-    assertTrue(stealthCruiser instanceof Fighter);
+    assertTrue(stealthCruiser instanceof Spaceship);
   }
 
   @Test
@@ -374,7 +372,7 @@ public class SpacefleetTester {
         new ColonialViper(
             "Eurofighter Typhoon", 15, 0.1f, Collections.emptySet(), Collections.emptyList());
     //noinspection ConstantConditions
-    assertTrue(colonialViper instanceof Fighter);
+    assertTrue(colonialViper instanceof Spaceship);
   }
 
   @Test
@@ -388,7 +386,7 @@ public class SpacefleetTester {
             Collections.emptyList());
 
     //noinspection ConstantConditions
-    assertTrue(cylonRaider instanceof Fighter);
+    assertTrue(cylonRaider instanceof Spaceship);
   }
 
   // TODO add Cylon model number tester
