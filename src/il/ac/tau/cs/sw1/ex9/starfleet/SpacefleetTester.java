@@ -16,6 +16,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.cert.CRL;
 import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -305,6 +306,89 @@ public class SpacefleetTester {
                 methods.contains(method),
                 String.format(
                     "The method '%s' is missing from %s", method, clazz.getSimpleName())));
+  }
+
+  @Test
+  public void testCrewWomanImplementsCrewMember() {
+    CrewWoman crewWoman = new CrewWoman(66, 48, "Amanda Ripley");
+    //noinspection ConstantConditions
+    assertTrue(crewWoman instanceof CrewMember);
+  }
+
+  @Test
+  public void testOfficerImplementsCrewWoman() {
+    Officer officer = new Officer("Sarah Briggs", 30, 10, OfficerRank.Commander);
+    //noinspection ConstantConditions
+    assertTrue(officer instanceof CrewWoman);
+  }
+
+  @Test
+  public void testCylonImplementsCrewMember() {
+    Cylon cylon = new Cylon("John Lumic", 50, 0, 0);
+    //noinspection ConstantConditions
+    assertTrue(cylon instanceof CrewMember);
+  }
+
+  @Test
+  public void testTransportShipImplementsSpaceship() {
+    TransportShip transportShip =
+        new TransportShip("GTT Elysium", 2321, 4.5f, Collections.emptySet(), 40000, 20000);
+    //noinspection ConstantConditions
+    assertTrue(transportShip instanceof Spaceship);
+  }
+
+  @Test
+  public void testFighterImplementsSpaceship() {
+    Fighter fighter =
+        new Fighter("Arwing", 2167, 4.2f, Collections.emptySet(), Collections.emptyList());
+    //noinspection ConstantConditions
+    assertTrue(fighter instanceof Spaceship);
+  }
+
+  @Test
+  public void testBomberImplementsSpaceship() {
+    Bomber bomber =
+        new Bomber(
+            "MG-100 StarFortress SF-17",
+            3154,
+            0.3f,
+            Collections.emptySet(),
+            Collections.emptyList(),
+            3);
+    //noinspection ConstantConditions
+    assertTrue(bomber instanceof Spaceship);
+  }
+
+  @Test
+  public void testStealthCruiserImplementsFighter() {
+    StealthCruiser stealthCruiser =
+        new StealthCruiser(
+            "Normandy", 2183, 2.98f, Collections.emptySet(), Collections.emptyList());
+    //noinspection ConstantConditions
+    assertTrue(stealthCruiser instanceof Fighter);
+  }
+
+  @Test
+  public void testColonialViperImplementsFighter() {
+    ColonialViper colonialViper =
+        new ColonialViper(
+            "Eurofighter Typhoon", 15, 0.1f, Collections.emptySet(), Collections.emptyList());
+    //noinspection ConstantConditions
+    assertTrue(colonialViper instanceof Fighter);
+  }
+
+  @Test
+  public void testCylonRaiderImplementsFighter() {
+    CylonRaider cylonRaider =
+        new CylonRaider(
+            "cba to find any cool names",
+            Integer.MIN_VALUE,
+            0f,
+            Collections.emptySet(),
+            Collections.emptyList());
+
+    //noinspection ConstantConditions
+    assertTrue(cylonRaider instanceof Fighter);
   }
 
   // TODO add Cylon model number tester
