@@ -78,34 +78,32 @@ public class SpacefleetTester {
         Collections.singletonList(new Weapon("Molecular Disruption Device", 1000000, 100000));
     List<Weapon> weapon2 = Collections.singletonList(new Weapon("Cap Gun", 1, 1));
     Set<CrewMember> members = Collections.singleton(new CrewWoman(11, 5, "Andrew Wiggin"));
+    List<Weapon> combinedWeapons =
+        Stream.concat(weapon1.stream(), weapon2.stream()).collect(Collectors.toList());
     return Stream.of(
         // FIXME Fix speeds
+        Arguments.of(new Bomber("Starfighter #1", 2101, 0f, members, weapon1, 0), 105000, 1000010),
         Arguments.of(
-            new Bomber("Starfighter #1", 2101, 96700f, members, weapon1, 0), 105000, 1000010),
-        Arguments.of(
-            new Bomber("Starfighter #2", 2102, 967000f, Collections.emptySet(), weapon1, 1),
+            new Bomber("Starfighter #2", 2102, 1f, Collections.emptySet(), weapon1, 1),
             95000,
             1000010),
+        Arguments.of(new Bomber("Starfighter #3", 2103, 2f, members, weapon1, 2), 85000, 1000010),
         Arguments.of(
-            new Bomber("Starfighter #3", 2103, 9670f, members, weapon1, 2), 85000, 1000010),
-        Arguments.of(
-            new Bomber("Starfighter #4", 2104, 90f, Collections.emptySet(), weapon1, 3),
+            new Bomber("Starfighter #4", 2104, 3f, Collections.emptySet(), weapon1, 3),
             75000,
             1000010),
         Arguments.of(
-            new Bomber("Starfighter #5", 2105, 96000f, Collections.emptySet(), weapon1, 4),
+            new Bomber("Starfighter #5", 2105, 4f, Collections.emptySet(), weapon1, 4),
             65000,
             1000010),
-        Arguments.of(new Bomber("Starfighter #6", 2106, 9f, members, weapon1, 5), 55000, 1000010),
+        Arguments.of(new Bomber("Starfighter #6", 2106, 5f, members, weapon1, 5), 55000, 1000010),
         Arguments.of(
-            new Bomber(
-                "Starfighter #1 with Cap Gun",
-                2101,
-                96700f,
-                members,
-                Stream.concat(weapon1.stream(), weapon2.stream()).collect(Collectors.toList()),
-                0),
+            new Bomber("Starfighter #1 with Cap Gun", 2101, 0f, members, combinedWeapons, 0),
             105001,
+            1000011),
+        Arguments.of(
+            new Bomber("Starfighter #2", 2102, 1f, Collections.emptySet(), combinedWeapons, 1),
+            95000,
             1000011));
   }
 
