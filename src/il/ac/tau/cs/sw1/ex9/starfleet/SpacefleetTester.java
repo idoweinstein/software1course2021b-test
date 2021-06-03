@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SpacefleetTester {
   private static final String FOLDER_PATH = "./src/il/ac/tau/cs/sw1/ex9/starfleet/";
@@ -78,34 +79,31 @@ public class SpacefleetTester {
         Collections.singletonList(new Weapon("Molecular Disruption Device", 1000000, 100000));
     List<Weapon> weapon2 = Collections.singletonList(new Weapon("Cap Gun", 1, 1));
     Set<CrewMember> members = Collections.singleton(new CrewWoman(11, 5, "Andrew Wiggin"));
+    List<Weapon> combinedWeapons =
+        Stream.concat(weapon1.stream(), weapon2.stream()).collect(Collectors.toList());
     return Stream.of(
-        // FIXME Fix speeds
+        Arguments.of(new Bomber("Starfighter #1", 2101, 0f, members, weapon1, 0), 105000, 1000010),
         Arguments.of(
-            new Bomber("Starfighter #1", 2101, 96700f, members, weapon1, 0), 105000, 1000010),
-        Arguments.of(
-            new Bomber("Starfighter #2", 2102, 967000f, Collections.emptySet(), weapon1, 1),
+            new Bomber("Starfighter #2", 2102, 1f, Collections.emptySet(), weapon1, 1),
             95000,
             1000010),
+        Arguments.of(new Bomber("Starfighter #3", 2103, 2f, members, weapon1, 2), 85000, 1000010),
         Arguments.of(
-            new Bomber("Starfighter #3", 2103, 9670f, members, weapon1, 2), 85000, 1000010),
-        Arguments.of(
-            new Bomber("Starfighter #4", 2104, 90f, Collections.emptySet(), weapon1, 3),
+            new Bomber("Starfighter #4", 2104, 3f, Collections.emptySet(), weapon1, 3),
             75000,
             1000010),
         Arguments.of(
-            new Bomber("Starfighter #5", 2105, 96000f, Collections.emptySet(), weapon1, 4),
+            new Bomber("Starfighter #5", 2105, 4f, Collections.emptySet(), weapon1, 4),
             65000,
             1000010),
-        Arguments.of(new Bomber("Starfighter #6", 2106, 9f, members, weapon1, 5), 55000, 1000010),
+        Arguments.of(new Bomber("Starfighter #6", 2106, 5f, members, weapon1, 5), 55000, 1000010),
         Arguments.of(
-            new Bomber(
-                "Starfighter #1 with Cap Gun",
-                2101,
-                96700f,
-                members,
-                Stream.concat(weapon1.stream(), weapon2.stream()).collect(Collectors.toList()),
-                0),
+            new Bomber("Starfighter #1 with Cap Gun", 2101, 0f, members, combinedWeapons, 0),
             105001,
+            1000011),
+        Arguments.of(
+            new Bomber("Starfighter #2", 2102, 1f, Collections.emptySet(), combinedWeapons, 1),
+            95000,
             1000011));
   }
 
@@ -250,8 +248,147 @@ public class SpacefleetTester {
         Arguments.of(new CylonRaider("CylonRaider #8", 666, 10, members, weapon), 31600, 1200610));
   }
 
-  // TODO add Cylon model number tester
-  // TODO Add a test that makes sure that all functions were added, and that they're functional
+  @SuppressWarnings("unused")
+  private static Stream<Arguments> testContainedMethodsProvider() {
+    List<String> crewMemberMethods = Arrays.asList("getName", "getAge", "getYearsInService");
+
+    List<String> officerMethods = new ArrayList<>(crewMemberMethods);
+    officerMethods.add("getRank");
+
+    List<String> cylonMethods = new ArrayList<>(crewMemberMethods);
+    cylonMethods.add("getModelNumber");
+
+    List<String> spaceshipMethods =
+        Arrays.asList(
+            "getName",
+            "getCommissionYear",
+            "getMaximalSpeed",
+            "getFirePower",
+            "getCrewMembers",
+            "getAnnualMaintenanceCost");
+
+    List<String> transportShipMethods = new ArrayList<>(spaceshipMethods);
+    transportShipMethods.add("getCargoCapacity");
+    transportShipMethods.add("getPassengerCapacity");
+
+    List<String> fighterMethods = new ArrayList<>(spaceshipMethods);
+    fighterMethods.add("getWeapon");
+    fighterMethods.add("getFirePower");
+
+    List<String> bomberMethods = new ArrayList<>(fighterMethods);
+    bomberMethods.add("getNumberOfTechnicians");
+
+    return Stream.of(
+        Arguments.of(CrewMember.class, crewMemberMethods),
+        Arguments.of(CrewWoman.class, crewMemberMethods),
+        Arguments.of(Officer.class, officerMethods),
+        Arguments.of(Cylon.class, cylonMethods),
+        Arguments.of(Spaceship.class, spaceshipMethods),
+        Arguments.of(TransportShip.class, transportShipMethods),
+        Arguments.of(Fighter.class, fighterMethods),
+        Arguments.of(Bomber.class, bomberMethods),
+        Arguments.of(StealthCruiser.class, fighterMethods),
+        Arguments.of(ColonialViper.class, fighterMethods),
+        Arguments.of(CylonRaider.class, fighterMethods));
+  }
+
+  @ParameterizedTest
+  @MethodSource("testContainedMethodsProvider")
+  public void testContainedMethods(Class<?> clazz, List<String> expectedMethods) {
+    List<String> methods =
+        Arrays.stream(clazz.getMethods()).map(Method::getName).collect(Collectors.toList());
+    expectedMethods.forEach(
+        method ->
+            assertTrue(
+                methods.contains(method),
+                String.format(
+                    "The method '%s' is missing from %s", method, clazz.getSimpleName())));
+  }
+
+  @Test
+  public void testCrewWomanImplementsCrewMember() {
+    CrewWoman crewWoman = new CrewWoman(66, 48, "Amanda Ripley");
+    //noinspection ConstantConditions
+    assertTrue(crewWoman instanceof CrewMember);
+  }
+
+  @Test
+  public void testOfficerImplementsCrewWoman() {
+    Officer officer = new Officer("Sarah Briggs", 30, 10, OfficerRank.Commander);
+    //noinspection ConstantConditions
+    assertTrue(officer instanceof CrewMember);
+  }
+
+  @Test
+  public void testCylonImplementsCrewMember() {
+    Cylon cylon = new Cylon("John Lumic", 50, 0, 0);
+    //noinspection ConstantConditions
+    assertTrue(cylon instanceof CrewMember);
+  }
+
+  @Test
+  public void testTransportShipImplementsSpaceship() {
+    TransportShip transportShip =
+        new TransportShip("GTT Elysium", 2321, 4.5f, Collections.emptySet(), 40000, 20000);
+    //noinspection ConstantConditions
+    assertTrue(transportShip instanceof Spaceship);
+  }
+
+  @Test
+  public void testFighterImplementsSpaceship() {
+    Fighter fighter =
+        new Fighter("Arwing", 2167, 4.2f, Collections.emptySet(), Collections.emptyList());
+    //noinspection ConstantConditions
+    assertTrue(fighter instanceof Spaceship);
+  }
+
+  @Test
+  public void testBomberImplementsSpaceship() {
+    Bomber bomber =
+        new Bomber(
+            "MG-100 StarFortress SF-17",
+            3154,
+            0.3f,
+            Collections.emptySet(),
+            Collections.emptyList(),
+            3);
+    //noinspection ConstantConditions
+    assertTrue(bomber instanceof Spaceship);
+  }
+
+  @Test
+  public void testStealthCruiserImplementsFighter() {
+    StealthCruiser stealthCruiser =
+        new StealthCruiser(
+            "Normandy", 2183, 2.98f, Collections.emptySet(), Collections.emptyList());
+    //noinspection ConstantConditions
+    assertTrue(stealthCruiser instanceof Spaceship);
+  }
+
+  @Test
+  public void testColonialViperImplementsFighter() {
+    ColonialViper colonialViper =
+        new ColonialViper(
+            "Eurofighter Typhoon", 15, 0.1f, Collections.emptySet(), Collections.emptyList());
+    //noinspection ConstantConditions
+    assertTrue(colonialViper instanceof Spaceship);
+  }
+
+  @Test
+  public void testCylonRaiderImplementsFighter() {
+    CylonRaider cylonRaider =
+        new CylonRaider(
+            "cba to find any cool names",
+            Integer.MIN_VALUE,
+            0f,
+            Collections.emptySet(),
+            Collections.emptyList());
+
+    //noinspection ConstantConditions
+    assertTrue(cylonRaider instanceof Spaceship);
+  }
+
+  // TODO Add a test for every function
 
   @ParameterizedTest
   @MethodSource({
