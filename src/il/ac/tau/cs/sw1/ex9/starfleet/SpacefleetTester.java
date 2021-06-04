@@ -2,8 +2,8 @@ package il.ac.tau.cs.sw1.ex9.starfleet;
 
 import il.ac.tau.cs.sw1.ex9.TesterUtil;
 
-import org.junit.Ignore;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -413,7 +413,7 @@ public class SpacefleetTester {
         expectedFirePower, spaceship.getFirePower(), "Fire Power - " + spaceship.getName());
   }
 
-  @Ignore
+  @Disabled
   @ParameterizedTest
   @MethodSource({
     "transportShipsMaintenanceProvider",
@@ -448,7 +448,7 @@ public class SpacefleetTester {
     assertEquals(reprBefore, spaceship.toString());
   }
 
-  @Ignore
+  @Disabled
   @SuppressWarnings("unchecked")
   @ParameterizedTest
   @MethodSource({
