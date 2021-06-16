@@ -15,12 +15,9 @@ else
 	EXERCISE_TEST_PATH := src/enumRiddles src/riddles src/il/ac/tau/cs/sw1/ex9/TesterUtil.java
 	EXERCISE_CODE_PATH := $(CODE_DIR)/src/enumRiddles $(CODE_DIR)/src/riddles
 
-	SWT_URL := https://www.eclipse.org/downloads/download.php?file=/eclipse/downloads/drops4/R-4.14-201912100610/swt-4.14-gtk-linux-x86_64.zip
-	SWT_ZIP := swt.zip
-
 	APP_NAME := trivia.jar
 	TRIVIA_CODE_PATH := $(CODE_DIR)/src/il/ac/tau/cs/sw1/trivia
-	MAIN_CLASS := swt.jar il.ac.tau.cs.sw1.trivia.TriviaMain
+	MAIN_CLASS := il.ac.tau.cs.sw1.trivia.TriviaMain
 
 	TRIVIA_SOURCES := $(shell find $(TRIVIA_CODE_PATH) -name '*.java' 2>/dev/null)
 
@@ -96,32 +93,20 @@ update: checkenv $(CODE_DIR)
 	@cd $(CODE_DIR) && git pull
 
 # Exercise 10
-ifeq ($(EX_NO),10)
-	.PHONY: build_trivia
-	build_trivia: $(BUILD_DIR) $(CODE_DIR) swt.jar
-		@echo Building trivia
-		@echo Compiling your code
-		@SOURCES=$$(echo $(TRIVIA_SOURCES)) ;\
-		 [ -z "$$SOURCES" ] && SOURCES=$$(find $(TRIVIA_CODE_PATH) -name '*.java') ;\
-		 $(JAVAC) $(JAVAC_FLAGS) -cp swt.jar -d $(BUILD_DIR) $$SOURCES
+.PHONY: build_trivia
+build_trivia: $(BUILD_DIR) $(CODE_DIR) swt.jar
+	@echo Building trivia
+	@echo Compiling your code
+	@SOURCES=$$(echo $(TRIVIA_SOURCES)) ;\
+	 [ -z "$$SOURCES" ] && SOURCES=$$(find $(TRIVIA_CODE_PATH) -name '*.java') ;\
+	 $(JAVAC) $(JAVAC_FLAGS) -cp swt.jar -d $(BUILD_DIR) $$SOURCES
 
-	$(SWT_ZIP):
-		@echo Downloading SWT library
-		@wget -O $(SWT_ZIP) $(SWT_URL)
+$(APP_NAME): build_trivia
+	@echo Packing trivia app
+	@cp swt.jar $(APP_NAME)
+	@jar ufe $(APP_NAME) $(MAIN_CLASS) -C $(BUILD_DIR) . -J-Xmx1M
 
-	swt.jar: $(SWT_ZIP)
-		@echo Extracting SWT library
-		@unzip -p $(SWT_ZIP) swt.jar > swt.jar
-
-	$(APP_NAME): $(SWT_ZIP) build_trivia
-		@echo Packing trivia app
-		@unzip -p $(SWT_ZIP) swt.jar > $(APP_NAME)
-		@jar ufe $(MAIN_CLASS) -C $(BUILD_DIR)/trivia . -J-Xmx1M
-
-	.PHONY: trivia
-	trivia: $(APP_NAME)
-		@echo Opening tests manual
-		@-firefox $(TESTS_MD_URL) & disown
-		@echo Running the trivia app
-		@java -jar $(APP_NAME)
-endif
+.PHONY: trivia
+trivia: clean $(APP_NAME)
+	@echo Running the trivia app
+	@java -jar $(APP_NAME)
