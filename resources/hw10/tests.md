@@ -1,7 +1,7 @@
 ## Sanity
 ### ALL FUNCTIONS
 * Load resources/hw10/ten.txt<br>
-  Score is zero<br>
+  Score is 0<br>
   Pass is enabled<br>
   50-50 is enabled
 * Choose 'RIGHT'<br>
@@ -71,7 +71,7 @@
 
 ### TEN RIGHT
 * Load resources/hw10/ten.txt<br>
-  Score is zero<br>
+  Score is 0<br>
   Pass is enabled<br>
   50-50 is enabled
 * Peform the following 10 times:
@@ -89,7 +89,7 @@
 
 ### TEN ALTERNATING
 * Load resources/hw10/ten.txt<br>
-  Score is zero<br>
+  Score is 0<br>
   Pass is enabled<br>
   50-50 is enabled
 * Peform the following 5 times:
@@ -110,10 +110,10 @@
   Content: Your final score is 5 after 10 questions.
   ```
 
-## Funtional
+## Functional
 ### ONE RIGHT
 * Load resources/hw10/one.txt<br>
-  Score is zero<br>
+  Score is 0<br>
   Pass is enabled<br>
   50-50 is enabled
 * Choose 'RIGHT'
@@ -127,23 +127,25 @@
 ### ONE WRONG
 * Load resources/hw10/one.txt
 * Choose 'WRONG1'<br>
-  Score is 0<br>
+  Score is -2<br>
   A dialog appears:
   ```
   Title: GAME OVER
   Content: Your final score is -2 after 1 questions.
   ```
-* Load resources/hw10/one.txt
+* Load resources/hw10/one.txt<br>
+  Score is 0
 * Choose 'WRONG2'<br>
-  Score is 0<br>
+  Score is -2<br>
   A dialog appears:
   ```
   Title: GAME OVER
   Content: Your final score is -2 after 1 questions.
   ```
-* Load resources/hw10/one.txt
+* Click on Play!
+  Score is 0
 * Choose 'WRONG3'<br>
-  Score is 0<br>
+  Score is -2<br>
   A dialog appears:
   ```
   Title: GAME OVER
@@ -158,6 +160,7 @@
   50-50 button is disabled<br>
   Pass button is enabled
 * Choose 'RIGHT'<br>
+  Score is 3<br>
   A dialog appears:
   ```
   Title: GAME OVER
@@ -168,11 +171,12 @@
 * Load resources/hw10/ten.txt
 * Perform the following 3 times
   * Choose one of the 'WRONG'<br>
-    Score is 0<br>
+    Score decreased by 2<br>
     50-50 button is enabled<br>
     Pass button is enabled<br>
     Different number appears as a question
 * After the 3rd time:<br>
+  Score is -6<br>
   A dialog appears:
   ```
   Title: GAME OVER
@@ -180,6 +184,12 @@
   ```
 
 ## Edge cases
+### EXIT BROWSE DIALOG
+* Click on Browse
+* Click on the X button to close the window<br>
+  Program is still running<br>
+  Textbox content doesn't change
+
 ### EMPTY
 * Load resources/hw10/empty.txt<br>
   A dialog appears:
@@ -201,12 +211,14 @@
 * Load resources/hw10/ten.txt
 * Perform the following 2 times
   * Choose one of the 'WRONG'<br>
-    Score is 0<br>
+    Score decreased by 2<br>
     50-50 button is enabled<br>
     Pass button is enabled<br>
     Different number appears as a question
-* Click on PASS
+* Click on PASS<br>
+  Score is -4<br>
 * Choose 'WRONG3'<br>
+  Score is -6<br>
   A dialog appears:
   ```
   Title: GAME OVER
@@ -238,9 +250,3 @@
   Title: Error
   Content: Trivia file format error: Trivia file for must containing a question and four answers, seperated by tabs. (row 2)
   ```
-
-### EXIT BROWSE DIALOG
-* Click on Browse
-* Click on the X button to close the window<br>
-  Program is still running<br>
-  Textbox content doesn't change
