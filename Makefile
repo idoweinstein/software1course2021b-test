@@ -94,16 +94,16 @@ update: checkenv $(CODE_DIR)
 
 # Exercise 10
 .PHONY: build_trivia
-build_trivia: $(BUILD_DIR) $(CODE_DIR) swt.jar
+build_trivia: $(BUILD_DIR) $(CODE_DIR)
 	@echo Building trivia
 	@echo Compiling your code
 	@SOURCES=$$(echo $(TRIVIA_SOURCES)) ;\
 	 [ -z "$$SOURCES" ] && SOURCES=$$(find $(TRIVIA_CODE_PATH) -name '*.java') ;\
-	 $(JAVAC) $(JAVAC_FLAGS) -cp swt.jar -d $(BUILD_DIR) $$SOURCES
+	 $(JAVAC) $(JAVAC_FLAGS) -cp resources/hw10/swt.jar -d $(BUILD_DIR) $$SOURCES
 
 $(APP_NAME): build_trivia
 	@echo Packing trivia app
-	@cp swt.jar $(APP_NAME)
+	@cp resources/hw10/swt.jar $(APP_NAME)
 	@jar ufe $(APP_NAME) $(MAIN_CLASS) -C $(BUILD_DIR) . -J-Xmx1M
 
 .PHONY: trivia
