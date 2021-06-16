@@ -1,6 +1,6 @@
 ## Sanity
 ### ALL FUNCTIONS
-* Load ten.txt
+* Load resources/hw10/ten.txt
   Score is zero<br>
   Pass is enabled<br>
   50-50 is enabled
@@ -9,12 +9,12 @@
   50-50 button is enabled<br>
   Pass button is enabled<br>
   A different number appears as a question
-* Choose 'WRONG'<br>
+* Choose 'WRONG1'<br>
   Score is 1<br>
   50-50 button is enabled<br>
   Pass button is enabled<br>
   A different number appears as a question
-* Choose 'WRONG'<br>
+* Choose 'WRONG2'<br>
   Score is -1<br>
   50-50 button is enabled<br>
   Pass button is enabled<br>
@@ -35,7 +35,7 @@
   Pass button is enabled<br>
   Question number doesn't change<br>
   Two 'WRONG' buttons are disabled
-* CHOOSE 'WRONG'<br>
+* CHOOSE 'WRONG3'<br>
   Score is 0<br>
   50-50 is disabled<br>
   Pass button is disabled<br>
@@ -70,7 +70,7 @@
   ```
 
 ### TEN RIGHT
-* Load ten.txt<br>
+* Load resources/hw10/ten.txt<br>
   Score is zero<br>
   Pass is enabled<br>
   50-50 is enabled
@@ -88,7 +88,7 @@
   ```
 
 ### TEN ALTERNATING
-* Load ten.txt<br>
+* Load resources/hw10/ten.txt<br>
   Score is zero<br>
   Pass is enabled<br>
   50-50 is enabled
@@ -98,7 +98,7 @@
     50-50 button is enabled<br>
     Pass button is enabled<br>
     Different number appears as a question
-  * Choose 'WRONG'<br>
+  * Choose one of the 'WRONG'<br>
     Score decreased by 2<br>
     50-50 button is enabled<br>
     Pass button is enabled<br>
@@ -112,7 +112,7 @@
 
 ## Funtional
 ### ONE RIGHT
-* Load one.txt<br>
+* Load resources/hw10/one.txt<br>
   Score is zero<br>
   Pass is enabled<br>
   50-50 is enabled
@@ -125,8 +125,24 @@
   ```
 
 ### ONE WRONG
-* Load one.txt
-* Choose 'WRONG'<br>
+* Load resources/hw10/one.txt
+* Choose 'WRONG1'<br>
+  Score is 0<br>
+  A dialog appears:
+  ```
+  Title: GAME OVER
+  Content: Your final score is -2 after 1 questions.
+  ```
+* Load resources/hw10/one.txt
+* Choose 'WRONG2'<br>
+  Score is 0<br>
+  A dialog appears:
+  ```
+  Title: GAME OVER
+  Content: Your final score is -2 after 1 questions.
+  ```
+* Load resources/hw10/one.txt
+* Choose 'WRONG3'<br>
   Score is 0<br>
   A dialog appears:
   ```
@@ -135,7 +151,7 @@
   ```
 
 ### ONE 50-50
-* Load one.txt
+* Load resources/hw10/one.txt
 * Click on 50-50<br>
   Score is 0<br>
   Two 'WRONG' answers are disabled<br>
@@ -149,9 +165,9 @@
   ```
 
 ### THREE WRONG
-* Load ten.txt
+* Load resources/hw10/ten.txt
 * Perform the following 3 times
-  * Choose 'WRONG'<br>
+  * Choose one of the 'WRONG'<br>
     Score is 0<br><br>
     50-50 button is enabled
     Pass button is enabled<br>
@@ -165,7 +181,7 @@
 
 ## Edge cases
 ### EMPTY
-* Load empty.txt<br>
+* Load resources/hw10/empty.txt<br>
   A dialog appears:
   ```
   Title: GAME OVER
@@ -173,7 +189,7 @@
   ```
 
 ### ONE PASS
-* Load one.txt
+* Load resources/hw10/one.txt
 * Click on Pass<br>
   A dialog appears:
   ```
@@ -182,15 +198,15 @@
   ```
 
 ### THREE WRONG WITH PASS
-* Load ten.txt
+* Load resources/hw10/ten.txt
 * Perform the following 2 times
-  * Choose 'WRONG'<br>
+  * Choose one of the 'WRONG'<br>
     Score is 0<br>
     50-50 button is enabled<br>
     Pass button is enabled<br>
     Different number appears as a question
 * Click on PASS
-* Choose 'WRONG'<br>
+* Choose 'WRONG3'<br>
   A dialog appears:
   ```
   Title: GAME OVER
@@ -208,7 +224,7 @@
   ```
 
 ### DIFFERENT FILE FORMAT
-* Load tests.md
+* Load resources/hw10/tests.md
   A dialog appears:
   ```
   Title: Error
@@ -216,7 +232,7 @@
   ```
 
 ### INVALID LINE
-* Load invalidline.txt
+* Load resources/hw10/invalidline.txt
   A dialog appears:
   ```
   Title: Error

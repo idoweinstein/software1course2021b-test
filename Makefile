@@ -96,7 +96,7 @@ update: checkenv $(CODE_DIR)
 	@cd $(CODE_DIR) && git pull
 
 # Exercise 10
-ifeq($(EX_NO),10)
+ifeq ($(EX_NO),10)
 	.PHONY: build_trivia
 	build_trivia: $(BUILD_DIR) $(CODE_DIR) swt.jar
 		@echo Building trivia
