@@ -241,6 +241,6 @@
 
 ### EXIT BROWSE DIALOG
 * Click on Browse
-* Click on the X button to close the window
-  Program is still running
+* Click on the X button to close the window<br>
+  Program is still running<br>
   Textbox content doesn't change
