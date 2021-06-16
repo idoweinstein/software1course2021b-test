@@ -40,3 +40,7 @@ VSCode: https://youtu.be/LRkqvZs857c?t=176
   make update
   make run
   ``` 
+* Run trivia (exercise 10):
+  ```
+  make trivia
+  ```
