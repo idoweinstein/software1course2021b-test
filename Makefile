@@ -107,6 +107,6 @@ $(APP_NAME): build_trivia
 	@jar ufe $(APP_NAME) $(MAIN_CLASS) -C $(BUILD_DIR) . -J-Xmx1M
 
 .PHONY: trivia
-trivia: clean $(APP_NAME)
+trivia: checkenv clean $(APP_NAME)
 	@echo Running the trivia app
 	@java -jar $(APP_NAME)
