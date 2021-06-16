@@ -216,7 +216,7 @@
 ## Strict (skipped)
 ### NON EXISTENT FILE
 * In the textbox, write nonexistentfile.txt
-* Click on Play!
+* Click on Play!<br>
   A dialog appears:
   ```
   Title: Error
@@ -224,7 +224,7 @@
   ```
 
 ### DIFFERENT FILE FORMAT
-* Load resources/hw10/tests.md
+* Load resources/hw10/tests.md<br>
   A dialog appears:
   ```
   Title: Error
@@ -232,7 +232,7 @@
   ```
 
 ### INVALID LINE
-* Load resources/hw10/invalidline.txt
+* Load resources/hw10/invalidline.txt<br>
   A dialog appears:
   ```
   Title: Error
