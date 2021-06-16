@@ -21,7 +21,7 @@ else
 
 	TRIVIA_SOURCES := $(shell find $(TRIVIA_CODE_PATH) -name '*.java' 2>/dev/null)
 
-	TESTS_MD_URL := TBD
+	GUI_FLAGS := -XX:-UseLargePages
 endif
 
 JUNIT_URL := https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.7.2/junit-platform-console-standalone-1.7.2.jar
@@ -104,9 +104,9 @@ build_trivia: $(BUILD_DIR) $(CODE_DIR)
 $(APP_NAME): build_trivia
 	@echo Packing trivia app
 	@cp resources/hw10/swt.jar $(APP_NAME)
-	@jar ufe $(APP_NAME) $(MAIN_CLASS) -C $(BUILD_DIR) . -J-Xmx1M
+	jar ufe $(APP_NAME) $(MAIN_CLASS) -C $(BUILD_DIR) . -J-Xmx1M -J$(GUI_FLAGS)
 
 .PHONY: trivia
 trivia: checkenv clean $(APP_NAME)
 	@echo Running the trivia app
-	@java -jar $(APP_NAME)
+	@java $(GUI_FLAGS) -jar $(APP_NAME)
