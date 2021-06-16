@@ -1,6 +1,6 @@
 ## Sanity
 ### ALL FUNCTIONS
-* Load resources/hw10/ten.txt
+* Load resources/hw10/ten.txt<br>
   Score is zero<br>
   Pass is enabled<br>
   50-50 is enabled
@@ -35,7 +35,7 @@
   Pass button is enabled<br>
   Question number doesn't change<br>
   Two 'WRONG' buttons are disabled
-* CHOOSE 'WRONG3'<br>
+* CHOOSE the remaining 'WRONG'<br>
   Score is 0<br>
   50-50 is disabled<br>
   Pass button is disabled<br>
@@ -168,8 +168,8 @@
 * Load resources/hw10/ten.txt
 * Perform the following 3 times
   * Choose one of the 'WRONG'<br>
-    Score is 0<br><br>
-    50-50 button is enabled
+    Score is 0<br>
+    50-50 button is enabled<br>
     Pass button is enabled<br>
     Different number appears as a question
 * After the 3rd time:<br>
@@ -228,7 +228,7 @@
   A dialog appears:
   ```
   Title: Error
-  Content: Trivia file format error: Trivia file for must containing a question and four answers, seperated by tabs. (row 1)
+  Content: Trivia file format error: Trivia file row must containing a question and four answers, seperated by tabs. (row 1)
   ```
 
 ### INVALID LINE
@@ -238,3 +238,9 @@
   Title: Error
   Content: Trivia file format error: Trivia file for must containing a question and four answers, seperated by tabs. (row 2)
   ```
+
+### EXIT BROWSE DIALOG
+* Click on Browse
+* Click on the X button to close the window
+  Program is still running
+  Textbox content doesn't change
