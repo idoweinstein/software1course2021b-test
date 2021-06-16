@@ -104,7 +104,7 @@ build_trivia: $(BUILD_DIR) $(CODE_DIR)
 $(APP_NAME): build_trivia
 	@echo Packing trivia app
 	@cp resources/hw10/swt.jar $(APP_NAME)
-	jar ufe $(APP_NAME) $(MAIN_CLASS) -C $(BUILD_DIR) . -J-Xmx1M -J$(GUI_FLAGS)
+	@jar ufe $(APP_NAME) $(MAIN_CLASS) -C $(BUILD_DIR) . -J-Xmx1M -J$(GUI_FLAGS)
 
 .PHONY: trivia
 trivia: checkenv clean $(APP_NAME)
