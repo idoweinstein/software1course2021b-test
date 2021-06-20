@@ -22,6 +22,7 @@ else
 	TRIVIA_SOURCES := $(shell find $(TRIVIA_CODE_PATH) -name '*.java' 2>/dev/null)
 
 	GUI_FLAGS := -XX:-UseLargePages
+	GUI_ENVVARS := NO_AT_BRIDGE=1
 endif
 
 JUNIT_URL := https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.7.2/junit-platform-console-standalone-1.7.2.jar
@@ -109,4 +110,4 @@ $(APP_NAME): build_trivia
 .PHONY: trivia
 trivia: checkenv clean $(APP_NAME)
 	@echo Running the trivia app
-	@java $(GUI_FLAGS) -jar $(APP_NAME)
+	@$(GUI_ENVVARS) java $(GUI_FLAGS) -jar $(APP_NAME)
